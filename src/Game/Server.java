@@ -1,56 +1,34 @@
 package Game;
 
+
+import java.net.*;
+import java.util.ArrayList;
+
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class Server {
-    public static void main(String[] args) throws IOException {
-        Socket socket = null;
-        InputStreamReader inputStreamReader = null;
-        OutputStreamWriter outputStreamWriter = null;
-        BufferedReader bufferedReader = null;
-        BufferedWriter bufferedWriter = null;
-        ServerSocket serverSocket = null;
+public class Server
+{
+    private static final int PORT = 4200;
+    private static ArrayList<ClientHandler> clients = new ArrayList<>();
+    private static ExecutorService pool = Executors.newFixedThreadPool(2);
 
-        serverSocket = new ServerSocket(2222);
+    public static void main(String args[]) throws IOException
+    {
 
-        System.out.println(DateFormat.CurrentTime() + "Dice Rally server " + serverSocket.getLocalPort() + " started.");
+        ServerSocket listener = new ServerSocket(PORT);
 
-        while (true){
-            try {
-                socket = serverSocket.accept();
-
-                inputStreamReader = new InputStreamReader(socket.getInputStream());
-                outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
-
-                bufferedReader = new BufferedReader(inputStreamReader);
-                bufferedWriter = new BufferedWriter(outputStreamWriter);
-
-                while (true){
-                    String cmd = bufferedReader.readLine();
-
-                    if(cmd.equals(String.valueOf(Command.CONNECT))){
-                        String msg = bufferedReader.readLine();
-                        System.out.println(DateFormat.CurrentTime() + msg + " connected!");
-                    }
-                    else if(cmd.equals(String.valueOf(Command.SEND))){
-                        String name = bufferedReader.readLine();
-                        String msg = bufferedReader.readLine();
-                        System.out.println(DateFormat.CurrentTime() + name + ": " + msg);
-                    }
-                    else if(cmd.equals(String.valueOf(Command.ROLL))){
-                        String name = bufferedReader.readLine();
-                        String num = bufferedReader.readLine();
-                        System.out.println(DateFormat.CurrentTime() + name + " rolled: " + num);
-                    }
-                    else{
-                        System.out.println(cmd);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        while(true){
+            System.out.println("[SERVER] started!");
+            Socket client = listener.accept();
+            System.out.println("Waiting for players...");
+            ClientHandler clientThread = new ClientHandler(client, clients);
+            clients.add(clientThread);
+            pool.execute(clientThread);
         }
+
+
+
     }
 }
