@@ -14,7 +14,7 @@ public class GameWindow {
 
     private static JTextArea jTextArea;
 
-    public static void PaintWindow(){
+    public static void PaintWindow() {
         jFrame = new JFrame();
 
         chatPanel = new JPanel();
@@ -36,7 +36,7 @@ public class GameWindow {
 
     public static boolean sendPressed = false;
 
-    public static void ChatPanel(){
+    public static void ChatPanel() {
         chatPanel.setLayout(new GridLayout(2, 1));
 
         sendField = new JTextField(20);
@@ -64,13 +64,25 @@ public class GameWindow {
         chatPanel.add(textPanel);
     }
 
-    public static void BoardPanel(){
+    private static JPanel[] squarePanels;
+    private static JButton diceButton;
 
+    public static void BoardPanel() {
+        boardPanel.setLayout(new GridLayout(3, 3));
+        squarePanels = new JPanel[9];
+        for (int i = 0; i < 9; i++) {
+          squarePanels[i] = new JPanel();
+          squarePanels[i].setBorder(BorderFactory.createLineBorder(Color.black));
+          boardPanel.add(squarePanels[i]);
+        }
+        diceButton = new JButton("ROLL");
+        diceButton.setPreferredSize(new Dimension(320, 360));
+        squarePanels[4].add(diceButton);
     }
 
-    public static void AddMessage(String message){
-        if(jTextArea != null)
-            jTextArea.append( message + "\n" );
+    public static void AddMessage(String message) {
+        if (jTextArea != null)
+            jTextArea.append(message + "\n");
     }
 
 
