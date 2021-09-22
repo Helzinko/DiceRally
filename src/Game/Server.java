@@ -9,8 +9,10 @@ import java.util.concurrent.Executors;
 
 public class Server
 {
+    public static boolean firstPlayerTimeToRoll = false;
+
     private static final int PORT = 4200;
-    private static ArrayList<ClientHandler> clients = new ArrayList<>();
+    public static ArrayList<ClientHandler> clients = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(2);
 
     public static void main(String args[]) throws IOException
@@ -24,6 +26,8 @@ public class Server
             ClientHandler clientThread = new ClientHandler(client, clients);
             clients.add(clientThread);
             pool.execute(clientThread);
+
+
         }
     }
 }

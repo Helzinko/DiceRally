@@ -67,6 +67,8 @@ public class GameWindow {
     private static JPanel[] squarePanels;
     private static JButton diceButton;
 
+    public static boolean rollPressed = false;
+
     public static void BoardPanel() {
         boardPanel.setLayout(new GridLayout(3, 3));
         squarePanels = new JPanel[9];
@@ -76,6 +78,14 @@ public class GameWindow {
           boardPanel.add(squarePanels[i]);
         }
         diceButton = new JButton("ROLL");
+
+        diceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rollPressed = true;
+            }
+        });
+
         diceButton.setPreferredSize(new Dimension(320, 360));
         squarePanels[4].add(diceButton);
     }

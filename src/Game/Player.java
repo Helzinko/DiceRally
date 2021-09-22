@@ -6,7 +6,7 @@ class Player{
 
     public boolean connected = false;
 
-    //private int id;
+    private int id;
 
     public Player(/*int id,*/ String name){
         this.name = name;
@@ -15,5 +15,13 @@ class Player{
 
     public String GetName(){
         return name;
+    }
+
+    public void SetId(int id){
+        this.id = id;
+    }
+
+    public int GetId(){
+        return id;
     }
 }

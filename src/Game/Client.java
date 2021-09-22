@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
-
 public class Client{
     private static final String SERVER_IP = "127.0.0.1";
     private static final int SERVER_PORT = 4200;
@@ -23,8 +22,6 @@ public class Client{
         LoginWindow.CreateWindow();
 
         boolean canContinue = false;
-
-        //System.out.println("Test1");
 
         Player player = null;
 
@@ -50,6 +47,13 @@ public class Client{
                 out.println(message);
                 GameWindow.sendField.setText("");
                 GameWindow.sendPressed = false;
+            }
+
+            if(GameWindow.rollPressed){
+                String text = String.valueOf(Dice.Roll());
+                String message = Wrapper.Encode(player, Command.ROLL, text);
+                out.println(message);
+                GameWindow.rollPressed = false;
             }
         }
     }
