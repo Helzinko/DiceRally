@@ -25,11 +25,7 @@ public class ClientHandler implements Runnable {
         try{
             while(true){
                 String request = in.readLine();
-                if(request.contains("name")){
-                    out.println("your name blah");
-                }else{
-                    outToAll(request);
-                }
+                outToAll(request);
             }
         }catch (IOException e){
             System.err.println("IO exception in client handler");

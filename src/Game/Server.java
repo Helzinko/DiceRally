@@ -1,6 +1,5 @@
 package Game;
 
-
 import java.net.*;
 import java.util.ArrayList;
 
@@ -16,7 +15,6 @@ public class Server
 
     public static void main(String args[]) throws IOException
     {
-
         ServerSocket listener = new ServerSocket(PORT);
 
         while(true){
@@ -27,8 +25,5 @@ public class Server
             clients.add(clientThread);
             pool.execute(clientThread);
         }
-
-
-
     }
 }

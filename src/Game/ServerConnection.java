@@ -23,7 +23,23 @@ public class ServerConnection implements Runnable {
         try {
             while (true){
                 String serverResponse = in.readLine();
-                System.out.println("server says: " + serverResponse);
+
+                Message msg = Wrapper.Decode(serverResponse);
+
+                if(msg.command == Command.CONNECT)
+                {
+                    System.out.println(msg.player.GetName() + msg.text);
+                    GameWindow.AddMessage(msg.player.GetName() + msg.text);
+                }
+                else if(msg.command == Command.SEND)
+                {
+                    System.out.println(msg.player.GetName() + " says: " + msg.text);
+                    GameWindow.AddMessage(msg.player.GetName() + " says: " + msg.text);
+                }
+                else if(msg.command == Command.ROLL){
+                    System.out.println(msg.player.GetName() + " rolled: " + msg.text);
+                    GameWindow.AddMessage(msg.player.GetName() + " rolled: " + msg.text);
+                }
             }
         }catch (IOException e){
             e.printStackTrace();
