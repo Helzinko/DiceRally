@@ -1,6 +1,7 @@
 package Game;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,8 @@ public class GameWindow {
     private static JFrame jFrame;
     private static JPanel chatPanel;
     private static JPanel boardPanel;
+
+    private static JTextArea jTextArea;
 
     public static void PaintWindow(){
         jFrame = new JFrame();
@@ -28,19 +31,40 @@ public class GameWindow {
         jFrame.setVisible(true);
     }
 
-    public static void ChatPanel(){
+    private static JButton sendBtn;
+    public static JTextField sendField;
 
+    public static boolean sendPressed = false;
+
+    public static void ChatPanel(){
+        chatPanel.setLayout(new GridLayout(2, 1));
+
+        sendField = new JTextField(20);
+        jTextArea = new JTextArea();
+        sendBtn = new JButton("Send");
+
+        sendBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendPressed = true;
+            }
+        });
+
+        JPanel textPanel = new JPanel();
+        JPanel sendPanel = new JPanel();
+
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        textPanel.setBorder(blackline);
+
+        textPanel.add(jTextArea);
+        sendPanel.add(sendField);
+        sendPanel.add(sendBtn);
+
+        chatPanel.add(sendPanel);
+        chatPanel.add(textPanel);
     }
 
     public static void BoardPanel(){
-
-    }
-
-    private static JTextArea jTextArea;
-
-    public static void CreateWindow(){
-        JPanel textPanel = new JPanel();
-        textPanel.add(jTextArea);
 
     }
 

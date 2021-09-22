@@ -42,9 +42,15 @@ public class Client{
         }
 
         while(true){
-            String text = keyboard.readLine();
-            String message = Wrapper.Encode(player, Command.SEND, text);
-            out.println(message);
+            //String text = keyboard.readLine();
+            Thread.yield();
+            if(GameWindow.sendPressed){
+                String text = GameWindow.sendField.getText();
+                String message = Wrapper.Encode(player, Command.SEND, text);
+                out.println(message);
+                GameWindow.sendField.setText("");
+                GameWindow.sendPressed = false;
+            }
         }
     }
 }
