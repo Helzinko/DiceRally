@@ -34,7 +34,7 @@ public class Client{
                 String name = LoginWindow.loginInputField.getText();
                 player = new Player(name);
                 String text = " connected!";
-                GameWindow.CreateWindow();
+                GameWindow.PaintWindow();
                 String message = Wrapper.Encode(player, Command.CONNECT, text);
                 out.println(message);
                 canContinue = true;

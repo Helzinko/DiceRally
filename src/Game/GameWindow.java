@@ -8,30 +8,40 @@ import java.awt.event.ActionListener;
 public class GameWindow {
 
     private static JFrame jFrame;
-    private static JTextArea jTextArea;
+    private static JPanel chatPanel;
+    private static JPanel boardPanel;
 
-    private static JButton sendBtn;
-    public static JTextField sendInput;
-
-    public static boolean pressed = false;
-
-    public static void CreateWindow(){
+    public static void PaintWindow(){
         jFrame = new JFrame();
 
-        jTextArea = new JTextArea();
+        chatPanel = new JPanel();
+        boardPanel = new JPanel();
 
+        boardPanel.setBackground(Color.gray);
+        jFrame.setLayout(new GridLayout(1, 2));
+        ChatPanel();
+        BoardPanel();
+        jFrame.add(chatPanel);
+        jFrame.add(boardPanel);
+
+        jFrame.setSize(1920, 1080);
+        jFrame.setVisible(true);
+    }
+
+    public static void ChatPanel(){
+
+    }
+
+    public static void BoardPanel(){
+
+    }
+
+    private static JTextArea jTextArea;
+
+    public static void CreateWindow(){
         JPanel textPanel = new JPanel();
         textPanel.add(jTextArea);
 
-        JPanel buttonPanel = new JPanel();
-
-        sendBtn = new JButton("Send");
-        buttonPanel.add(sendBtn);
-        jFrame.add(textPanel, BorderLayout.WEST);
-        jFrame.add(buttonPanel, BorderLayout.EAST);
-
-        jFrame.setSize(600, 600);
-        jFrame.setVisible(true);
     }
 
     public static void AddMessage(String message){
