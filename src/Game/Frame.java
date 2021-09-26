@@ -29,12 +29,12 @@ public class Frame extends JFrame {
         Panel gameWindow = GameWindow.ShowWindow();
         frame.add(gameWindow);
 
-        Panel chatPanel = new Panel(mainFrameWidth, mainFrameHeight / 3, true);
+        Panel chatPanel = new Panel(mainFrameWidth, mainFrameHeight - GameWindow.windowSize, true);
         Chat.ChatPanel(chatPanel);
         frame.add(chatPanel, BorderLayout.SOUTH);
 
-        frame.add(new Panel(mainFrameWidth / 4, mainFrameHeight / 3 * 2, true), BorderLayout.EAST);
-        frame.add(new Panel(mainFrameWidth / 4, mainFrameHeight / 3 * 2, true), BorderLayout.WEST);
+        frame.add(new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true), BorderLayout.EAST);
+        frame.add(new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true), BorderLayout.WEST);
 
         frame.pack();
 

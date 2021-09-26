@@ -30,8 +30,8 @@ public class Chat {
             }
         });
 
-        JPanel textPanel = new Panel(1920, 270, false);
-        JPanel sendPanel = new Panel(1920, 90, false);
+        JPanel textPanel = new Panel(Frame.mainFrameWidth, (Frame.mainFrameHeight - GameWindow.windowSize) / 4 * 3, false);
+        JPanel sendPanel = new Panel(Frame.mainFrameWidth, (Frame.mainFrameHeight - GameWindow.windowSize) / 4, false);
 
         textPanel.add(jTextArea);
         sendPanel.add(sendField);
