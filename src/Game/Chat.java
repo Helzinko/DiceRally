@@ -1,7 +1,5 @@
 package Game;
 
-import javafx.scene.layout.Pane;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
