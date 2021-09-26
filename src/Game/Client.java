@@ -1,7 +1,5 @@
 package Game;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
@@ -31,7 +29,7 @@ public class Client{
                 String name = LoginWindow.loginInputField.getText();
                 player = new Player(name);
                 String text = " connected!";
-                GameWindow.PaintWindow();
+                Frame.ShowFrame();
                 String message = Wrapper.Encode(player, Command.CONNECT, text);
                 out.println(message);
                 canContinue = true;
@@ -41,19 +39,19 @@ public class Client{
         while(true){
             //String text = keyboard.readLine();
             Thread.yield();
-            if(GameWindow.sendPressed){
-                String text = GameWindow.sendField.getText();
+            if(Chat.sendPressed){
+                String text = Chat.sendField.getText();
                 String message = Wrapper.Encode(player, Command.SEND, text);
                 out.println(message);
-                GameWindow.sendField.setText("");
-                GameWindow.sendPressed = false;
+                Chat.sendField.setText("");
+                Chat.sendPressed = false;
             }
 
-            if(GameWindow.rollPressed){
+            if(Frame.rollPressed){
                 String text = String.valueOf(Dice.Roll());
                 String message = Wrapper.Encode(player, Command.ROLL, text);
                 out.println(message);
-                GameWindow.rollPressed = false;
+                Frame.rollPressed = false;
             }
         }
     }

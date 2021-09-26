@@ -29,16 +29,16 @@ public class ServerConnection implements Runnable {
                 if(msg.command == Command.CONNECT)
                 {
                     System.out.println(msg.player.GetName() + msg.text);
-                    GameWindow.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + msg.text);
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + msg.text);
                 }
                 else if(msg.command == Command.SEND)
                 {
                     System.out.println(msg.player.GetName() + " says: " + msg.text);
-                    GameWindow.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text);
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text);
                 }
                 else if(msg.command == Command.ROLL){
                     System.out.println(msg.player.GetName() + " rolled: " + msg.text);
-                    GameWindow.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " rolled: " + msg.text);
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " rolled: " + msg.text);
                 }
             }
         }catch (IOException e){
