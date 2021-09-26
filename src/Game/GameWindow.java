@@ -16,6 +16,8 @@ public class GameWindow extends Panel {
 
     public static int diceSize = 100;
 
+    public static int currentPlayerSquare = 1;
+
     public GameWindow (int width, int height, boolean needBorder) {
         super(width, height, needBorder);
     }
@@ -61,6 +63,14 @@ public class GameWindow extends Panel {
                         dice.setIcon(new ImageIcon(Images.dice6.getImage().getScaledInstance(diceSize, diceSize, 0)));
                         break;
                 }
+
+                currentPlayerSquare += rolledNumber;
+
+                if(currentPlayerSquare > 26){
+                    currentPlayerSquare = currentPlayerSquare - 26;
+                }
+
+                gameWindow.repaint();
             }
         });
 
@@ -97,6 +107,10 @@ public class GameWindow extends Panel {
 
                     g2d.setColor(Color.black);
                     g2d.drawString(String.valueOf(map[row][column].number), map[row][column].GetCenterCoord()[0], map[row][column].GetCenterCoord()[1]);
+
+                    if(map[row][column].number == currentPlayerSquare){
+                        drawPlayer(g2d, map[row][column].x, map[row][column].y);
+                    }
                 }
 
                 if(map[row][column].type == 10){
@@ -104,7 +118,13 @@ public class GameWindow extends Panel {
                 }
             }
         }
-        // --------------------------------------------
+
+    }
+
+    public void drawPlayer(Graphics2D g2d, int x, int y){
+
+        g2d.setColor(Color.BLUE);
+        g2d.fillOval(x, y, 30, 30);
 
     }
 
