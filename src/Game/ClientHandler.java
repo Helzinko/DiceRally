@@ -12,17 +12,20 @@ public class ClientHandler implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
     private ArrayList<ClientHandler> clients;
+    private int id;
 
-    public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients) throws IOException {
+    public ClientHandler(Socket clientSocket, ArrayList<ClientHandler> clients, int id) throws IOException {
         this.client = clientSocket;
         this.clients = clients;
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         out = new PrintWriter(client.getOutputStream(), true);
+        this.id = id;
     }
 
     @Override
     public void run() {
         try{
+            out.println(id);
             while(true){
                 String request = in.readLine();
                 outToAll(request);

@@ -2,11 +2,11 @@ package Game;
 
 public class Wrapper {
 
-    public static Message Decode(String msg){
+    public static Message Decode(String msg, int playerID){
 
         String[] messageArray = msg.split("\\.");
 
-        Player player = new Player(messageArray[0]);
+        Player player = new Player(playerID, messageArray[0]);
         Command command = null;
 
         if(Command.CONNECT.name().equals(messageArray[1]))

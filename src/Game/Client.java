@@ -3,17 +3,21 @@ package Game;
 import java.io.*;
 import java.net.Socket;
 
-public class Client{
+public class Client {
     private static final String SERVER_IP = "127.0.0.1";
     private static final int SERVER_PORT = 4200;
+    public static int playerID;
 
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-
-        ServerConnection serverConn = new ServerConnection(socket);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String temp = reader.readLine();
+        playerID = Integer.parseInt(temp);
+        System.out.println(playerID + "pla");
+        ServerConnection serverConn = new ServerConnection(socket, playerID);
 
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out  = new PrintWriter(socket.getOutputStream(), true);
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
         new Thread(serverConn).start();
 
@@ -22,12 +26,11 @@ public class Client{
         boolean canContinue = false;
 
         Player player = null;
-
-        while(!canContinue){
+        while (!canContinue) {
             Thread.yield();
-            if(LoginWindow.pressed){
+            if (LoginWindow.pressed) {
                 String name = LoginWindow.loginInputField.getText();
-                player = new Player(name);
+                player = new Player(playerID, name);
                 String text = " connected!";
                 Frame.ShowFrame();
                 String message = Wrapper.Encode(player, Command.CONNECT, text);
@@ -36,10 +39,10 @@ public class Client{
             }
         }
 
-        while(true){
+        while (true) {
             //String text = keyboard.readLine();
             Thread.yield();
-            if(Chat.sendPressed){
+            if (Chat.sendPressed) {
                 String text = Chat.sendField.getText();
                 String message = Wrapper.Encode(player, Command.SEND, text);
                 out.println(message);
@@ -47,10 +50,10 @@ public class Client{
                 Chat.sendPressed = false;
             }
 
-            if(Frame.rollPressed){
+            if (Frame.rollPressed) {
                 String text = String.valueOf(Dice.Roll());
                 String message = Wrapper.Encode(player, Command.ROLL, text);
-                out.println(message);
+                out.println(message + playerID);
                 Frame.rollPressed = false;
             }
         }

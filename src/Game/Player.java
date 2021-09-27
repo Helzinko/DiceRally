@@ -10,9 +10,9 @@ class Player{
 
 
 
-    public Player(/*int id,*/ String name){
+    public Player(int id, String name){
         this.name = name;
-        //this.id = id;
+        this.id = id;
     }
 
     public String GetName(){

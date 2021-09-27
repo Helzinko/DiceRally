@@ -10,12 +10,14 @@ public class ServerConnection implements Runnable {
     private Socket server;
     private BufferedReader in;
     private PrintWriter out;
+    private int playerID;
 
 
-    public ServerConnection(Socket s) throws IOException {
+    public ServerConnection(Socket s, int playerID) throws IOException {
         server = s;
         in = new BufferedReader(new InputStreamReader(server.getInputStream()));
         out = new PrintWriter(server.getOutputStream(), true);
+        this.playerID = playerID;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class ServerConnection implements Runnable {
             while (true){
                 String serverResponse = in.readLine();
 
-                Message msg = Wrapper.Decode(serverResponse);
+                Message msg = Wrapper.Decode(serverResponse, playerID);
 
                 if(msg.command == Command.CONNECT)
                 {
@@ -34,7 +36,7 @@ public class ServerConnection implements Runnable {
                 else if(msg.command == Command.SEND)
                 {
                     System.out.println(msg.player.GetName() + " says: " + msg.text);
-                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text);
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text + playerID);
                 }
                 else if(msg.command == Command.ROLL){
                     System.out.println(msg.player.GetName() + " rolled: " + msg.text);

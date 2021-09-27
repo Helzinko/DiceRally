@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 public class GameWindow extends Panel {
 
+    private static int playedID;
+    private static boolean canGo;
+
     public static GameWindow gameWindow;
 
     public static int windowSize = 800;
@@ -23,6 +26,13 @@ public class GameWindow extends Panel {
     }
 
     public static GameWindow ShowWindow(){
+        playedID = Client.playerID;
+        if(playedID == 0){
+            canGo = true;
+        }
+        else{
+            canGo = false;
+        }
 
         gameWindow = new GameWindow(windowSize, windowSize, true);
 

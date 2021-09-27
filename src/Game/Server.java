@@ -14,6 +14,7 @@ public class Server
     private static final int PORT = 4200;
     public static ArrayList<ClientHandler> clients = new ArrayList<>();
     private static ExecutorService pool = Executors.newFixedThreadPool(2);
+    private static int counter = 0;
 
     public static void main(String args[]) throws IOException
     {
@@ -23,7 +24,8 @@ public class Server
             System.out.println("[SERVER] started!");
             Socket client = listener.accept();
             System.out.println("Waiting for players...");
-            ClientHandler clientThread = new ClientHandler(client, clients);
+            ClientHandler clientThread = new ClientHandler(client, clients, counter);
+            counter++;
             clients.add(clientThread);
             pool.execute(clientThread);
 
