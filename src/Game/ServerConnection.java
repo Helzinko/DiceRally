@@ -36,11 +36,18 @@ public class ServerConnection implements Runnable {
                 else if(msg.command == Command.SEND)
                 {
                     System.out.println(msg.player.GetName() + " says: " + msg.text);
-                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text + playerID);
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text);
                 }
                 else if(msg.command == Command.ROLL){
-                    System.out.println(msg.player.GetName() + " rolled: " + msg.text);
-                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " rolled: " + msg.text);
+                    String[] messageArray = msg.text.split(",");
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " rolled: " + messageArray[0]);
+
+                    if(Client.playerName != null){
+                        if(!Client.playerName.equals(msg.player.GetName())){
+                            GameWindow.EnemyRolled(messageArray);
+                        }
+                    }
+
                 }
             }
         }catch (IOException e){

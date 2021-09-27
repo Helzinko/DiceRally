@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 public class GameWindow extends Panel {
 
     private static int playedID;
-    private static boolean canGo;
+    public static boolean canGo;
+    public static Color playerColor;
+    public static Color enemyColor;
 
     public static GameWindow gameWindow;
 
@@ -20,17 +22,25 @@ public class GameWindow extends Panel {
     public static int diceSize = 100;
 
     public static int currentPlayerSquare = 1;
+    private static int enemyPlayerSquare = 1;
 
     public GameWindow (int width, int height, boolean needBorder) {
         super(width, height, needBorder);
     }
 
+    public static String rolledMessage;
+    public static boolean rollPressed = false;
+
     public static GameWindow ShowWindow(){
         playedID = Client.playerID;
         if(playedID == 0){
+            playerColor = Color.blue;
+            enemyColor = Color.green;
             canGo = true;
         }
         else{
+            playerColor = Color.green;
+            enemyColor = Color.blue;
             canGo = false;
         }
 
@@ -51,41 +61,33 @@ public class GameWindow extends Panel {
         dice.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int rolledNumber = Dice.Roll();
 
-                switch (rolledNumber){
-                    case 1:
-                        dice.setIcon(new ImageIcon(Images.dice1.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                        break;
-                    case 2:
-                        dice.setIcon(new ImageIcon(Images.dice2.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                        break;
-                    case 3:
-                        dice.setIcon(new ImageIcon(Images.dice3.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                        break;
-                    case 4:
-                        dice.setIcon(new ImageIcon(Images.dice4.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                        break;
-                    case 5:
-                        dice.setIcon(new ImageIcon(Images.dice5.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                        break;
-                    case 6:
-                        dice.setIcon(new ImageIcon(Images.dice6.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                        break;
+                if(canGo) {
+
+
+                    int rolledNumber = Dice.Roll();
+                    currentPlayerSquare += rolledNumber;
+
+                    if (currentPlayerSquare > 26) {
+                        currentPlayerSquare = currentPlayerSquare - 26;
+                    }
+
+                    rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare);
+                    System.out.println("Formed: " + rolledMessage);
+
+                    ChangeDice(rolledNumber);
+
+                    gameWindow.repaint();
+
+                    canGo = false;
+                    rollPressed = true;
                 }
-
-                currentPlayerSquare += rolledNumber;
-
-                if(currentPlayerSquare > 26){
-                    currentPlayerSquare = currentPlayerSquare - 26;
-                }
-
-                gameWindow.repaint();
             }
         });
 
         return gameWindow;
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -121,6 +123,10 @@ public class GameWindow extends Panel {
                     if(map[row][column].number == currentPlayerSquare){
                         drawPlayer(g2d, map[row][column].x, map[row][column].y);
                     }
+
+                    if(map[row][column].number == enemyPlayerSquare){
+                        drawEnemy(g2d, map[row][column].x, map[row][column].y);
+                    }
                 }
 
                 if(map[row][column].type == 10){
@@ -132,10 +138,46 @@ public class GameWindow extends Panel {
     }
 
     public void drawPlayer(Graphics2D g2d, int x, int y){
-
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(playerColor);
         g2d.fillOval(x, y, 30, 30);
+    }
 
+    public void drawEnemy(Graphics2D g2d, int x, int y){
+        g2d.setColor(enemyColor);
+        g2d.fillOval(x + unitSize - 30, y, 30, 30);
+    }
+
+    public static void ChangeDice(int number) {
+        switch (number) {
+            case 1:
+                dice.setIcon(new ImageIcon(Images.dice1.getImage().getScaledInstance(diceSize, diceSize, 0)));
+                break;
+            case 2:
+                dice.setIcon(new ImageIcon(Images.dice2.getImage().getScaledInstance(diceSize, diceSize, 0)));
+                break;
+            case 3:
+                dice.setIcon(new ImageIcon(Images.dice3.getImage().getScaledInstance(diceSize, diceSize, 0)));
+                break;
+            case 4:
+                dice.setIcon(new ImageIcon(Images.dice4.getImage().getScaledInstance(diceSize, diceSize, 0)));
+                break;
+            case 5:
+                dice.setIcon(new ImageIcon(Images.dice5.getImage().getScaledInstance(diceSize, diceSize, 0)));
+                break;
+            case 6:
+                dice.setIcon(new ImageIcon(Images.dice6.getImage().getScaledInstance(diceSize, diceSize, 0)));
+                break;
+        }
+    }
+
+    public static void EnemyRolled(String[] messageArray){
+        canGo = true;
+
+        ChangeDice(Integer.parseInt(messageArray[0]));
+
+        enemyPlayerSquare = Integer.parseInt(messageArray[1]);
+
+        gameWindow.repaint();
     }
 
 }

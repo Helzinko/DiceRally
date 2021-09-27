@@ -14,8 +14,6 @@ public class Frame extends JFrame {
 
     private static JTextArea jTextArea;
 
-    public static boolean rollPressed = false;
-
     public static int mainFrameWidth = 1920;
     public static int mainFrameHeight = 1080;
 

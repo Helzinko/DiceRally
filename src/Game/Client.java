@@ -7,6 +7,7 @@ public class Client {
     private static final String SERVER_IP = "127.0.0.1";
     private static final int SERVER_PORT = 4200;
     public static int playerID;
+    public static String playerName;
 
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
@@ -29,8 +30,8 @@ public class Client {
         while (!canContinue) {
             Thread.yield();
             if (LoginWindow.pressed) {
-                String name = LoginWindow.loginInputField.getText();
-                player = new Player(playerID, name);
+                playerName = LoginWindow.loginInputField.getText();
+                player = new Player(playerID, playerName);
                 String text = " connected!";
                 Frame.ShowFrame();
                 String message = Wrapper.Encode(player, Command.CONNECT, text);
@@ -50,11 +51,10 @@ public class Client {
                 Chat.sendPressed = false;
             }
 
-            if (Frame.rollPressed) {
-                String text = String.valueOf(Dice.Roll());
-                String message = Wrapper.Encode(player, Command.ROLL, text);
-                out.println(message + playerID);
-                Frame.rollPressed = false;
+            if (GameWindow.rollPressed) {
+                GameWindow.rollPressed = false;
+                String message = Wrapper.Encode(player, Command.ROLL, GameWindow.rolledMessage);
+                out.println(message);
             }
         }
     }
