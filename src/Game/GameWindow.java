@@ -96,8 +96,8 @@ public class GameWindow extends Panel {
         Graphics2D g2d = (Graphics2D) g;
 
         // background;
-        g2d.setColor(Color.cyan);
-        g2d.fillRect(0, 0, gameWindow.pWidth, gameWindow.pHeight);
+        //g2d.setColor(Color.cyan);
+        //g2d.fillRect(0, 0, gameWindow.pWidth, gameWindow.pHeight);
         //  ---------------------
 
         // map drawing ------------------------------
@@ -107,34 +107,34 @@ public class GameWindow extends Panel {
             for ( int column = 0; column < 10; column++ ){
 
                 map[row][column].SetCoord(column*unitSize, row*unitSize);
+                map[row][column].DrawSquare(g2d,column*unitSize, row*unitSize, unitSize, unitSize);
 
-                if(map[row][column].type == 1){
-                    if(map[row][column].number == 1){
-                        g2d.setColor(Color.RED);
-                        g2d.fillRect(column*unitSize, row*unitSize, unitSize, unitSize);
-                    }else{
-                        g2d.setColor(Color.ORANGE);
-                        g2d.fillRect(column*unitSize, row*unitSize, unitSize, unitSize);
-                    }
+                if(map[row][column].ReturnType() == 1){
+                    //if(map[row][column].ReturnNumber() == 1){
+                        //g2d.setColor(Color.RED);
+                    //    g2d.fillRect(column*unitSize, row*unitSize, unitSize, unitSize);
+                    //}else{
+                     //   //g2d.setColor(Color.ORANGE);
+                    //    //g2d.fillRect(column*unitSize, row*unitSize, unitSize, unitSize);
+                    //}
 
                     g2d.setColor(Color.black);
-                    g2d.drawString(String.valueOf(map[row][column].number), map[row][column].GetCenterCoord()[0], map[row][column].GetCenterCoord()[1]);
+                    g2d.drawString(String.valueOf(map[row][column].ReturnNumber()), map[row][column].GetCenterCoord()[0], map[row][column].GetCenterCoord()[1]);
 
-                    if(map[row][column].number == currentPlayerSquare){
-                        drawPlayer(g2d, map[row][column].x, map[row][column].y);
+                    if(map[row][column].ReturnNumber() == currentPlayerSquare){
+                        drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                     }
 
-                    if(map[row][column].number == enemyPlayerSquare){
-                        drawEnemy(g2d, map[row][column].x, map[row][column].y);
+                    if(map[row][column].ReturnNumber() == enemyPlayerSquare){
+                        drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                     }
                 }
 
-                if(map[row][column].type == 10){
-                    dice.setBounds(map[row][column].x, map[row][column].y, unitSize, unitSize);
+                if(map[row][column].ReturnType() == 10){
+                    dice.setBounds(map[row][column].ReturnX(), map[row][column].ReturnY(), unitSize, unitSize);
                 }
             }
         }
-
     }
 
     public void drawPlayer(Graphics2D g2d, int x, int y){

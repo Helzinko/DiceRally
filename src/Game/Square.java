@@ -2,34 +2,20 @@ package Game;
 
 import java.awt.*;
 
-public class Square {
+public interface Square {
 
-    public int type;
-    public int number;
+    public void SetCoord(int x, int y);
 
-    public int x;
-    public int y;
+    public int[] GetCenterCoord();
 
-    public Square(int type, int number){
+    public int ReturnType();
 
-        this.type = type;
-        this.number = number;
+    public int ReturnNumber();
 
-    }
+    public int ReturnX();
 
-    public void SetCoord(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
+    public int ReturnY();
 
-    public int[] GetCenterCoord(){
-
-        int centerX = x + GameWindow.unitSize/2;
-        int centerY = y + GameWindow.unitSize/2;
-
-        int[] center = {centerX, centerY};
-
-        return center;
-    }
+    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height);
 
 }

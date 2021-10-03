@@ -28,8 +28,6 @@ public class Server
             counter++;
             clients.add(clientThread);
             pool.execute(clientThread);
-
-
         }
     }
 }

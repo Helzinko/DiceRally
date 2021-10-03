@@ -5,15 +5,43 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Chat {
+
+    public static Chat instance;
+
+    public Chat(){
+        instance = this;
+    }
 
     private static JButton sendBtn;
     public static JTextField sendField;
 
-    public static boolean sendPressed = false;
-
     private static JTextArea jTextArea;
+
+    private List<Observer> observers = new ArrayList<Observer>();
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+        notifyAllObservers();
+    }
+
+    public void attach(Observer observer){
+        observers.add(observer);
+    }
+
+    public void notifyAllObservers(){
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
 
     public static Panel ChatPanel(Panel panel) {
 
@@ -24,7 +52,7 @@ public class Chat {
         sendBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendPressed = true;
+                instance.setState(sendField.getText());
             }
         });
 

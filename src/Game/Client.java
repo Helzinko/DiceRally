@@ -3,22 +3,30 @@ package Game;
 import java.io.*;
 import java.net.Socket;
 
-public class Client {
+public class Client extends Observer{
     private static final String SERVER_IP = "127.0.0.1";
     private static final int SERVER_PORT = 4200;
     public static int playerID;
     public static String playerName;
+    public static PrintWriter out;
+    public static Player player;
+    public static Chat chat;
 
     public static void main(String[] args) throws IOException {
+        chat = new Chat();
+
+        Client client = new Client();
+        client.subject = chat.instance;
+        client.subject.attach(client);
+
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String temp = reader.readLine();
         playerID = Integer.parseInt(temp);
-        System.out.println(playerID + "pla");
         ServerConnection serverConn = new ServerConnection(socket, playerID);
 
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        out = new PrintWriter(socket.getOutputStream(), true);
 
         new Thread(serverConn).start();
 
@@ -26,7 +34,7 @@ public class Client {
 
         boolean canContinue = false;
 
-        Player player = null;
+        player = null;
         while (!canContinue) {
             Thread.yield();
             if (LoginWindow.pressed) {
@@ -43,13 +51,6 @@ public class Client {
         while (true) {
             //String text = keyboard.readLine();
             Thread.yield();
-            if (Chat.sendPressed) {
-                String text = Chat.sendField.getText();
-                String message = Wrapper.Encode(player, Command.SEND, text);
-                out.println(message);
-                Chat.sendField.setText("");
-                Chat.sendPressed = false;
-            }
 
             if (GameWindow.rollPressed) {
                 GameWindow.rollPressed = false;
@@ -57,5 +58,13 @@ public class Client {
                 out.println(message);
             }
         }
+    }
+
+    @Override
+    public void update() {
+            String text = subject.getState();
+            String message = Wrapper.Encode(player, Command.SEND, text);
+            out.println(message);
+            chat.instance.sendField.setText("");
     }
 }
