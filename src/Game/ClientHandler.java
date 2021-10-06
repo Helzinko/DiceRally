@@ -1,5 +1,7 @@
 package Game;
 
+import Game.singleton.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +30,8 @@ public class ClientHandler implements Runnable {
             out.println(id);
             while(true){
                 String request = in.readLine();
+                Logger logger = Logger.getInstance();
+                logger.log(request);
                 outToAll(request);
             }
         }catch (IOException e){
@@ -45,7 +49,7 @@ public class ClientHandler implements Runnable {
 
     private void outToAll(String msg){
         for(ClientHandler aClient : clients){
-            aClient.out.println(msg);
+            aClient.out.println(msg + "asddddddd");
         }
     }
 }
