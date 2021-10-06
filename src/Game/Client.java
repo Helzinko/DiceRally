@@ -8,6 +8,7 @@ public class Client extends Observer{
     private static final int SERVER_PORT = 4200;
     public static int playerID;
     public static String playerName;
+    public static String carType;
     public static PrintWriter out;
     public static Player player;
     public static Chat chat;
@@ -40,9 +41,10 @@ public class Client extends Observer{
             if (LoginWindow.pressed) {
                 playerName = LoginWindow.loginInputField.getText();
                 player = new Player(playerID, playerName);
-                String text = " connected!";
+                String text = " connected as ";
                 Frame.ShowFrame();
-                String message = Wrapper.Encode(player, Command.CONNECT, text);
+                carType = LoginWindow.inputCarType.getSelectedItem().toString();
+                String message = Wrapper.Encode(player, Command.CONNECT, text) + carType;
                 out.println(message);
                 canContinue = true;
             }

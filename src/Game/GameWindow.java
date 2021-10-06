@@ -11,6 +11,7 @@ public class GameWindow extends Panel {
     public static boolean canGo;
     public static Color playerColor;
     public static Color enemyColor;
+    public static String carType;
 
     public static GameWindow gameWindow;
 
@@ -31,15 +32,35 @@ public class GameWindow extends Panel {
     public static String rolledMessage;
     public static boolean rollPressed = false;
 
-    public static GameWindow ShowWindow(){
+    public static GameWindow ShowWindow()
+    {
+        carType = LoginWindow.inputCarType.getSelectedItem().toString();
+
+        Director director = new Director();
+        CarBuilder builder = new CarBuilder();
+
+        switch (carType){
+            case "Race Car":
+                director.constructRaceCar(builder);
+                System.out.println(builder.getResult());
+            case "Rally Car":
+                director.constructRallyCar(builder);
+                System.out.println(builder.getResult());
+            case "Truck Car":
+                director.constructTruckCar(builder);
+                System.out.println(builder.getResult());
+        }
+
+        Chat.AddMessage(builder.getResult().toString());
         playedID = Client.playerID;
+
         if(playedID == 0){
             playerColor = Color.blue;
-            enemyColor = Color.green;
+            enemyColor = Color.red;
             canGo = true;
         }
         else{
-            playerColor = Color.green;
+            playerColor = Color.red;
             enemyColor = Color.blue;
             canGo = false;
         }
@@ -122,10 +143,12 @@ public class GameWindow extends Panel {
                     g2d.drawString(String.valueOf(map[row][column].ReturnNumber()), map[row][column].GetCenterCoord()[0], map[row][column].GetCenterCoord()[1]);
 
                     if(map[row][column].ReturnNumber() == currentPlayerSquare){
+//                        drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY(), carType);
                         drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                     }
 
                     if(map[row][column].ReturnNumber() == enemyPlayerSquare){
+//                        drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY(), carType);
                         drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                     }
                 }
@@ -137,14 +160,52 @@ public class GameWindow extends Panel {
         }
     }
 
-    public void drawPlayer(Graphics2D g2d, int x, int y){
+    public void drawPlayer(Graphics2D g2d, int x, int y)
+    {
         g2d.setColor(playerColor);
-        g2d.fillOval(x, y, 30, 30);
+        g2d.fillOval(x, y,30,30);
     }
 
-    public void drawEnemy(Graphics2D g2d, int x, int y){
+    public void drawEnemy(Graphics2D g2d, int x, int y)
+    {
         g2d.setColor(enemyColor);
         g2d.fillOval(x + unitSize - 30, y, 30, 30);
+    }
+
+    public void drawPlayer(Graphics2D g2d, int x, int y, String carType){
+        g2d.setColor(playerColor);
+//        g2d.fillOval(x, y, 30, 30);
+        switch (carType) {
+            case "Race Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x, y);
+//                g2d.drawPolygon(new int[]{10, 20, 30}, new int[]{100, 200, 300}, 3);
+            case "Rally Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x, y);
+//                g2d.fillRect(x, y, 20,30);
+            case "Truck Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x, y);
+        }
+    }
+
+    public void drawEnemy(Graphics2D g2d, int x, int y, String carType) {
+        g2d.setColor(enemyColor);
+        //        g2d.fillOval(x, y, 30, 30);
+        switch (carType) {
+            case "Race Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x + unitSize - 30, y);
+//                g2d.drawPolygon(new int[]{10, 20, 30}, new int[]{100, 200, 300}, 3);
+            case "Rally Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x + unitSize - 30, y);
+//                g2d.fillRect(x, y, 20,30);
+            case "Truck Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x + unitSize - 30, y);
+        }
     }
 
     public static void ChangeDice(int number) {
