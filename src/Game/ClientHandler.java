@@ -49,7 +49,7 @@ public class ClientHandler implements Runnable {
 
     private void outToAll(String msg){
         for(ClientHandler aClient : clients){
-            aClient.out.println(msg + "asddddddd");
+            aClient.out.println(msg);
         }
     }
 }
