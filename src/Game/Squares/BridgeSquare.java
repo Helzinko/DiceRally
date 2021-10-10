@@ -8,6 +8,7 @@ import java.awt.*;
 public class BridgeSquare implements Square {
     public int type = 0;
     public int number = 0;
+    public int addition = 4;
 
     public int x;
     public int y;
@@ -59,5 +60,10 @@ public class BridgeSquare implements Square {
     public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) {
         g2d.setColor(Color.gray);
         g2d.fillRect(x, y, width, height);
+    }
+
+    @Override
+    public int onTriggerEnter(int currentPosition) {
+        return currentPosition + this.addition;
     }
 }

@@ -5,7 +5,7 @@ import Game.Square;
 
 import java.awt.*;
 
-public class WaterSquare implements Square {
+public class GasSquare implements Square {
 
     public int type = 0;
     public int number = 0;
@@ -13,7 +13,7 @@ public class WaterSquare implements Square {
     public int x;
     public int y;
 
-    public WaterSquare(int type, int number){
+    public GasSquare(int type, int number) {
 
         this.type = type;
         this.number = number;
@@ -28,8 +28,8 @@ public class WaterSquare implements Square {
 
     @Override
     public int[] GetCenterCoord() {
-        int centerX = x + GameWindow.unitSize/2;
-        int centerY = y + GameWindow.unitSize/2;
+        int centerX = x + GameWindow.unitSize / 2;
+        int centerY = y + GameWindow.unitSize / 2;
 
         int[] center = {centerX, centerY};
 
@@ -58,7 +58,7 @@ public class WaterSquare implements Square {
 
     @Override
     public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) {
-        g2d.setColor(Color.cyan);
+        g2d.setColor(Color.WHITE);
         g2d.fillRect(x, y, width, height);
     }
 
@@ -66,5 +66,4 @@ public class WaterSquare implements Square {
     public int onTriggerEnter(int currentPosition) {
         return currentPosition;
     }
-
 }

@@ -92,7 +92,21 @@ public class GameWindow extends Panel {
                     if (currentPlayerSquare > 26) {
                         currentPlayerSquare = currentPlayerSquare - 26;
                     }
-
+                    Square[][] map = MapGenerator.Generate();
+                    boolean finishCalculation = false;
+                    for ( int row = 0; row < 10; row++ ){
+                        for ( int column = 0; column < 10; column++ ){
+                            if(currentPlayerSquare ==map[row][column].ReturnNumber()){
+                                currentPlayerSquare = map[row][column].onTriggerEnter(currentPlayerSquare);
+                                finishCalculation = true;
+                                break;
+                            }
+                        }
+                        if(finishCalculation){
+                            finishCalculation = false;
+                            break;
+                        }
+                    }
                     rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare);
                     System.out.println("Formed: " + rolledMessage);
 

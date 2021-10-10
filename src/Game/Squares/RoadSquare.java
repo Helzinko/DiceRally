@@ -65,4 +65,9 @@ public class RoadSquare implements Square {
         g2d.drawRect(x, y, width, height);
     }
 
+    @Override
+    public int onTriggerEnter(int currentPosition) {
+        return currentPosition;
+    }
+
 }

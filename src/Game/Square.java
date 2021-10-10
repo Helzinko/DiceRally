@@ -18,4 +18,6 @@ public interface Square {
 
     public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height);
 
+    public int onTriggerEnter(int currentPosition);
+
 }
