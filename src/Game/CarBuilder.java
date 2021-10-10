@@ -45,10 +45,10 @@ public class CarBuilder implements Builder{
         
     }
 
-//    public Car getResult()
-//    {
-//        return new Car(bodyType, power, fuelType, shield, antena, color);
-//    }
+    public Car getCar()
+    {
+        return new Car(bodyType, power, fuelType, shield, antena, color);
+    }
     public String getResult()
     {
         return new String(bodyType + " " + power + " " + fuelType + " " + shield + " " + antena + " " + color);

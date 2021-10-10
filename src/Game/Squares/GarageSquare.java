@@ -1,5 +1,6 @@
 package Game.Squares;
 
+import Game.Car;
 import Game.GameWindow;
 import Game.Square;
 
@@ -63,7 +64,8 @@ public class GarageSquare implements Square {
     }
 
     @Override
-    public int onTriggerEnter(int currentPosition) {
-        return currentPosition;
+    public double[] onTriggerEnter(int currentPosition, Car car, int rolled) {
+
+        return new double[] {currentPosition, car.fuel - car.getPower() * rolled, 100};
     }
 }

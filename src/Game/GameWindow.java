@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 
 public class GameWindow extends Panel {
 
@@ -32,6 +33,8 @@ public class GameWindow extends Panel {
     public static String rolledMessage;
     public static boolean rollPressed = false;
 
+    private static Car car;
+
     public static GameWindow ShowWindow()
     {
         carType = LoginWindow.inputCarType.getSelectedItem().toString();
@@ -50,6 +53,8 @@ public class GameWindow extends Panel {
                 director.constructTruckCar(builder);
                 System.out.println(builder.getResult());
         }
+
+        car = builder.getCar();
 
         Chat.AddMessage(builder.getResult().toString());
         playedID = Client.playerID;
@@ -84,33 +89,46 @@ public class GameWindow extends Panel {
             public void actionPerformed(ActionEvent e) {
 
                 if(canGo) {
-
-
-                    int rolledNumber = Dice.Roll();
-                    currentPlayerSquare += rolledNumber;
-
-                    if (currentPlayerSquare > 26) {
-                        currentPlayerSquare = currentPlayerSquare - 26;
+                    if(car.fuel <= 0){
+                        Chat.AddMessage("I can't move. I am out of fuel. I will miss one move :(");
+                        car.fuel = 60;
                     }
-                    Square[][] map = MapGenerator.Generate();
-                    boolean finishCalculation = false;
-                    for ( int row = 0; row < 10; row++ ){
-                        for ( int column = 0; column < 10; column++ ){
-                            if(currentPlayerSquare ==map[row][column].ReturnNumber()){
-                                currentPlayerSquare = map[row][column].onTriggerEnter(currentPlayerSquare);
-                                finishCalculation = true;
+                    else if (car.health <= 0){
+                        Chat.AddMessage("My car is broken. I can't. I will miss one move until my team fixes it.");
+                        car.health = 100;
+                    }
+                    else{
+                        int rolledNumber = Dice.Roll();
+                        currentPlayerSquare += rolledNumber;
+
+                        if (currentPlayerSquare > 26) {
+                            currentPlayerSquare = currentPlayerSquare - 26;
+                        }
+                        Square[][] map = MapGenerator.Generate();
+                        boolean finishCalculation = false;
+                        for ( int row = 0; row < 10; row++ ){
+                            for ( int column = 0; column < 10; column++ ){
+                                if(currentPlayerSquare ==map[row][column].ReturnNumber()){
+                                    double[] resultsAfterRoll = map[row][column].onTriggerEnter(currentPlayerSquare, car, rolledNumber);
+                                    currentPlayerSquare = (int)resultsAfterRoll[0];
+                                    car.fuel = resultsAfterRoll[1];
+                                    car.health = resultsAfterRoll[2];
+                                    System.out.println("kuras " + car.fuel);
+                                    System.out.println("hp " + car.health);
+                                    finishCalculation = true;
+                                    break;
+                                }
+                            }
+                            if(finishCalculation){
+                                finishCalculation = false;
                                 break;
                             }
                         }
-                        if(finishCalculation){
-                            finishCalculation = false;
-                            break;
-                        }
-                    }
-                    rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare);
-                    System.out.println("Formed: " + rolledMessage);
+                        rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare);
+                        System.out.println("Formed: " + rolledMessage);
 
-                    ChangeDice(rolledNumber);
+                        ChangeDice(rolledNumber);
+                    }
 
                     gameWindow.repaint();
 

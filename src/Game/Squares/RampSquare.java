@@ -1,5 +1,6 @@
 package Game.Squares;
 
+import Game.Car;
 import Game.GameWindow;
 import Game.Square;
 
@@ -10,6 +11,7 @@ public class RampSquare implements Square {
     public int type = 0;
     public int number = 0;
     public int addition = 3;
+    public int damage = 5;
 
     public int x;
     public int y;
@@ -64,7 +66,8 @@ public class RampSquare implements Square {
     }
 
     @Override
-    public int onTriggerEnter(int currentPosition) {
-        return currentPosition + this.addition;
+    public double[] onTriggerEnter(int currentPosition, Car car, int rolled) {
+
+        return new double[] {currentPosition + this.addition, car.fuel - car.getPower() * rolled, car.health - damage};
     }
 }

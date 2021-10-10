@@ -12,6 +12,8 @@ public class Car {
     private final int shield;
     private final Antena antena;
     private final CarColor color;
+    public double fuel;
+    public double health;
 
     public Car(BodyType bodyType, double power, FuelType fuelType, int shield, Antena antena, CarColor color)
     {
@@ -21,6 +23,8 @@ public class Car {
         this.shield = shield;
         this.antena = antena;
         this.color = color;
+        this.fuel = 60;
+        this.health = 100;
     }
 
     public BodyType getBodyType()
