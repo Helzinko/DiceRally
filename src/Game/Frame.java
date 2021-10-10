@@ -30,11 +30,16 @@ public class Frame extends JFrame {
         Chat.ChatPanel(chatPanel);
         frame.add(chatPanel, BorderLayout.SOUTH);
 
-        Panel player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-        Panel player2Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-
-        frame.add(ProfilePanel.PaintProfilePanel(player1Panel), BorderLayout.EAST);
-        frame.add(ProfilePanel.PaintProfilePanel(player2Panel), BorderLayout.WEST);
+        if(Client.playerID == 1){
+            Panel player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
+            frame.add(ProfilePanel.PaintProfilePanel(player1Panel), BorderLayout.EAST);
+            frame.add(new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true), BorderLayout.WEST);
+        }
+        else if(Client.playerID == 0){
+            frame.add(new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true), BorderLayout.EAST);
+            Panel player2Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
+            frame.add(ProfilePanel.PaintProfilePanel(player2Panel), BorderLayout.WEST);
+        }
 
         frame.pack();
 
