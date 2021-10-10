@@ -13,7 +13,11 @@ public class LoginWindow {
     static public JButton loginButton;
     static JLabel inputText;
     static JLabel carTypeLabel;
+    static JLabel sexTypeLabel;
+    static JLabel hairTypeLabel;
     static JComboBox inputCarType;
+    static JComboBox inputSexType;
+    static JComboBox inputHairColor;
 
     public static void CreateWindow(){
 
@@ -23,6 +27,16 @@ public class LoginWindow {
 
         String[] carStrings = {"Race Car", "Rally Car", "Truck Car"};
         inputCarType = new JComboBox(carStrings);
+
+        sexTypeLabel = new JLabel("Select Your Gender");
+
+        String[] sexString = {"Male", "Female"};
+        inputSexType = new JComboBox(sexString);
+
+        hairTypeLabel = new JLabel("Select Your Hair Color");
+
+        String[] hairColorString = {"Black", "Brown", "Red"};
+        inputHairColor = new JComboBox(hairColorString);
         
         loginButton = new JButton("Play");
 
@@ -41,6 +55,8 @@ public class LoginWindow {
         loginWindow.add(inputText);
         loginWindow.add(loginInputField);
         loginWindow.add(inputCarType);
+        loginWindow.add(inputSexType);
+        loginWindow.add(inputHairColor);
         loginWindow.add(loginButton);
 
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
