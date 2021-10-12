@@ -1,10 +1,13 @@
 package Game;
 
+import Game.Builder_Prototype.Car;
+import Game.Builder_Prototype.CarBuilder;
+import Game.Builder_Prototype.Director;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 
 public class GameWindow extends Panel {
 
@@ -46,6 +49,15 @@ public class GameWindow extends Panel {
             case "Race Car":
                 director.constructRaceCar(builder);
                 System.out.println(builder.getResult());
+
+                Car car = builder.getCar();
+                Car shallowCopy = builder.getCar().copyShallow();
+                Car deepCopy = builder.getCar().copyDeep();
+
+                System.out.println("primary shield: " + car.getShield().getType() + " | " + System.identityHashCode(car.getShield()));
+                System.out.println("shallow copy shield: " + shallowCopy.getShield().getType() + " | " + System.identityHashCode(shallowCopy.getShield()));
+                System.out.println("deep copy shield: " + deepCopy.getShield().getType() + " | " + System.identityHashCode(deepCopy.getShield()));
+
             case "Rally Car":
                 director.constructRallyCar(builder);
                 System.out.println(builder.getResult());
@@ -242,24 +254,12 @@ public class GameWindow extends Panel {
 
     public static void ChangeDice(int number) {
         switch (number) {
-            case 1:
-                dice.setIcon(new ImageIcon(Images.dice1.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                break;
-            case 2:
-                dice.setIcon(new ImageIcon(Images.dice2.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                break;
-            case 3:
-                dice.setIcon(new ImageIcon(Images.dice3.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                break;
-            case 4:
-                dice.setIcon(new ImageIcon(Images.dice4.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                break;
-            case 5:
-                dice.setIcon(new ImageIcon(Images.dice5.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                break;
-            case 6:
-                dice.setIcon(new ImageIcon(Images.dice6.getImage().getScaledInstance(diceSize, diceSize, 0)));
-                break;
+            case 1 -> dice.setIcon(new ImageIcon(Images.dice1.getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 2 -> dice.setIcon(new ImageIcon(Images.dice2.getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 3 -> dice.setIcon(new ImageIcon(Images.dice3.getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 4 -> dice.setIcon(new ImageIcon(Images.dice4.getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 5 -> dice.setIcon(new ImageIcon(Images.dice5.getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 6 -> dice.setIcon(new ImageIcon(Images.dice6.getImage().getScaledInstance(diceSize, diceSize, 0)));
         }
     }
 

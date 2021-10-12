@@ -1,11 +1,6 @@
-package Game;
+package Game.Builder_Prototype;
 
-import Game.enums.Antena;
-import Game.enums.BodyType;
-import Game.enums.CarColor;
-import Game.enums.FuelType;
-
-public class Director 
+public class Director
 {
     public void constructRaceCar(Builder builder)
     {
@@ -14,6 +9,7 @@ public class Director
         builder.setFuelType(FuelType.PETROL);
         builder.setAntena(Antena.USA_FLAG);
         builder.setColor(CarColor.RED);
+        builder.addElectricShield();
     }
 
     public void constructRallyCar(Builder builder)
@@ -21,8 +17,9 @@ public class Director
         builder.setBodyType(BodyType.RALLY_CAR);
         builder.setEngine(3.5);
         builder.setFuelType(FuelType.DIESEL);
-        builder.setShield(20);
-        builder.setColor(CarColor.BLUE);    
+        //builder.setShield(20);
+        builder.setColor(CarColor.BLUE);
+        builder.addForcefieldShield();
     }
 
     public void constructTruckCar(Builder builder)
@@ -30,8 +27,9 @@ public class Director
         builder.setBodyType(BodyType.TRUCK_CAR);
         builder.setEngine(6);
         builder.setFuelType(FuelType.BIO_FUEL);
-        builder.setShield(50);
+        //builder.setShield(50);
         builder.setAntena(Antena.TEDDY_BEAR);
         builder.setColor(CarColor.GREEN);
+        builder.addMagicShield();
     }
 }

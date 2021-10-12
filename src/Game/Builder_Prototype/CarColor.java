@@ -1,4 +1,4 @@
-package Game.enums;
+package Game.Builder_Prototype;
 
 public enum CarColor {
     BLACK,

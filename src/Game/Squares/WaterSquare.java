@@ -1,6 +1,6 @@
 package Game.Squares;
 
-import Game.Car;
+import Game.Builder_Prototype.Car;
 import Game.GameWindow;
 import Game.Square;
 
@@ -67,5 +67,4 @@ public class WaterSquare implements Square {
     public double[] onTriggerEnter(int currentPosition, Car car, int rolled) {
         return new double[] {currentPosition, car.fuel, car.health};
     }
-
 }

@@ -1,6 +1,6 @@
 package Game.Squares;
 
-import Game.Car;
+import Game.Builder_Prototype.Car;
 import Game.GameWindow;
 import Game.Square;
 

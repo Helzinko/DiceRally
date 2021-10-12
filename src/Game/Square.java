@@ -1,5 +1,7 @@
 package Game;
 
+import Game.Builder_Prototype.Car;
+
 import java.awt.*;
 
 public interface Square {

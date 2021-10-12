@@ -1,21 +1,17 @@
-package Game;
+package Game.Builder_Prototype;
 
-import Game.enums.Antena;
-import Game.enums.BodyType;
-import Game.enums.CarColor;
-import Game.enums.FuelType;
-
-public class Car {
+public class Car implements Cloneable
+{
     private final BodyType bodyType;
     private final double power;
     private final FuelType fuelType;
-    private final int shield;
+    private Shield shield;
     private final Antena antena;
     private final CarColor color;
     public double fuel;
     public double health;
 
-    public Car(BodyType bodyType, double power, FuelType fuelType, int shield, Antena antena, CarColor color)
+    public Car(BodyType bodyType, double power, FuelType fuelType, Shield shield, Antena antena, CarColor color)
     {
         this.bodyType = bodyType;
         this.power = power;
@@ -42,7 +38,7 @@ public class Car {
         return fuelType;
     }
 
-    public int getShield()
+    public Shield getShield()
     {
         return shield;
     }
@@ -55,5 +51,27 @@ public class Car {
     public CarColor getColor()
     {
         return color;
+    }
+
+    public Car copyDeep()
+    {
+        try {
+            Car copy = (Car) this.clone();
+            copy.shield = this.shield.copyShallow();
+            return copy;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Car copyShallow()
+    {
+        try {
+            return (Car) this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
