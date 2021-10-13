@@ -3,6 +3,8 @@ package Game.Squares;
 import Game.Builder_Prototype.Car;
 import Game.GameWindow;
 import Game.Square;
+import Game.Strategy.DriveBridge;
+import Game.Strategy.SquareAlgorithm;
 
 import java.awt.*;
 
@@ -64,8 +66,8 @@ public class BridgeSquare implements Square {
     }
 
     @Override
-    public double[] onTriggerEnter(int currentPosition, Car car, int rolled) {
+    public SquareAlgorithm getSquareAlgorithm() {
 
-        return new double[] {currentPosition + this.addition, car.fuel - car.getPower() * rolled, car.health};
+        return new DriveBridge();
     }
 }

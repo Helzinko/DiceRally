@@ -121,7 +121,7 @@ public class GameWindow extends Panel {
                         for ( int row = 0; row < 10; row++ ){
                             for ( int column = 0; column < 10; column++ ){
                                 if(currentPlayerSquare ==map[row][column].ReturnNumber()){
-                                    double[] resultsAfterRoll = map[row][column].onTriggerEnter(currentPlayerSquare, car, rolledNumber);
+                                    double[] resultsAfterRoll = map[row][column].getSquareAlgorithm().doSquareAction(currentPlayerSquare, car, rolledNumber);
                                     currentPlayerSquare = (int)resultsAfterRoll[0];
                                     car.fuel = resultsAfterRoll[1];
                                     car.health = resultsAfterRoll[2];

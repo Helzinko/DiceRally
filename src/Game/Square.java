@@ -1,6 +1,7 @@
 package Game;
 
 import Game.Builder_Prototype.Car;
+import Game.Strategy.SquareAlgorithm;
 
 import java.awt.*;
 
@@ -20,6 +21,6 @@ public interface Square {
 
     public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height);
 
-    public double[] onTriggerEnter(int currentPosition, Car car, int rolled);
+    public SquareAlgorithm getSquareAlgorithm();
 
 }
