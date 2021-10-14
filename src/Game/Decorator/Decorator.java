@@ -13,9 +13,9 @@ public abstract class Decorator extends Car {
 		super(bodyType, power, fuelType, shield, antena, color);
 	}
 
-	public BodyType getBodyType()
+	public FuelType getFuelType()
 	{
-		return car.getBodyType();
+		return car.getFuelType();
 	}
 
 }
