@@ -2,12 +2,12 @@ package Game.Builder_Prototype;
 
 public class Car implements Cloneable
 {
-    private final BodyType bodyType;
-    private final double power;
-    private final FuelType fuelType;
+    private BodyType bodyType;
+    private double power;
+    private FuelType fuelType;
     private Shield shield;
-    private final Antena antena;
-    private final CarColor color;
+    private Antena antena;
+    private CarColor color;
     public double fuel;
     public double health;
 
@@ -21,6 +21,9 @@ public class Car implements Cloneable
         this.color = color;
         this.fuel = 60;
         this.health = 100;
+    }
+
+    public Car() {
     }
 
     public BodyType getBodyType()

@@ -8,15 +8,16 @@ import Game.Builder_Prototype.*;
 
 public class Diesel extends Decorator
 {
-	private Car car;
-	public Diesel(BodyType bodyType, double power, FuelType fuelType, Shield shield, Antena antena, CarColor color) {
-		super(bodyType, power, fuelType, shield, antena, color);
+	public Diesel(Car component)
+	{
+		super(component);
 	}
 
 	public FuelType getFuelType( )
 	{
-		return car.getFuelType();
+		System.out.println(FuelType.DIESEL);
+		return FuelType.DIESEL;
 	}
-	
-	
+
+
 }

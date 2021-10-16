@@ -1,5 +1,5 @@
 /**
- * @(#) Pickup.java
+ * @(#) Roadster.java
  */
 
 package Game.Decorator;
@@ -8,15 +8,13 @@ import Game.Builder_Prototype.*;
 
 public class Petrol extends Decorator
 {
-	private Car car;
-	public Petrol(BodyType bodyType, double power, FuelType fuelType, Shield shield, Antena antena, CarColor color) {
-		super(bodyType, power, fuelType, shield, antena, color);
+	public Petrol(Car component) {
+		super(component);
 	}
 
 	public FuelType getFuelType( )
 	{
-		return car.getFuelType();
+		System.out.println(FuelType.PETROL);
+		return FuelType.PETROL;
 	}
-	
-	
 }

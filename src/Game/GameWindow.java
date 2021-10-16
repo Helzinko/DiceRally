@@ -3,6 +3,10 @@ package Game;
 import Game.Builder_Prototype.Car;
 import Game.Builder_Prototype.CarBuilder;
 import Game.Builder_Prototype.Director;
+import Game.Decorator.Diesel;
+import Game.Decorator.ElectricEngine;
+import Game.Decorator.Petrol;
+import Game.Decorator.BioFuel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,6 +58,10 @@ public class GameWindow extends Panel {
                 Car shallowCopy = builder.getCar().copyShallow();
                 Car deepCopy = builder.getCar().copyDeep();
 
+
+                Car decoratedCar = new ElectricEngine(car);
+                Car decoratedCar1 = new Petrol(decoratedCar);
+                decoratedCar1.getFuelType();
                 System.out.println("primary shield: " + car.getShield().getType() + " | " + System.identityHashCode(car.getShield()));
                 System.out.println("shallow copy shield: " + shallowCopy.getShield().getType() + " | " + System.identityHashCode(shallowCopy.getShield()));
                 System.out.println("deep copy shield: " + deepCopy.getShield().getType() + " | " + System.identityHashCode(deepCopy.getShield()));
@@ -61,9 +69,17 @@ public class GameWindow extends Panel {
             case "Rally Car":
                 director.constructRallyCar(builder);
                 System.out.println(builder.getResult());
+                Car carRally = builder.getCar();
+                Car decoratedCarRally = new ElectricEngine(carRally);
+                Car decoratedCarRally1 = new Diesel(decoratedCarRally);
+                decoratedCarRally1.getFuelType();
             case "Truck Car":
                 director.constructTruckCar(builder);
                 System.out.println(builder.getResult());
+                Car carTruck = builder.getCar();
+                Car decoratedCarTruck = new ElectricEngine(carTruck);
+                Car decoratedCarTruck1 = new BioFuel(decoratedCarTruck);
+                decoratedCarTruck1.getFuelType();
         }
 
         car = builder.getCar();
