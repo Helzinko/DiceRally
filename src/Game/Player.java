@@ -1,6 +1,6 @@
 package Game;
 
-class Player{
+public class Player{
 
     private String name;
 

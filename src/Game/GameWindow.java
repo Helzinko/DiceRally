@@ -3,6 +3,9 @@ package Game;
 import Game.Builder_Prototype.Car;
 import Game.Builder_Prototype.CarBuilder;
 import Game.Builder_Prototype.Director;
+import Game.CommandPattern.Controller;
+import Game.CommandPattern.ICommand;
+import Game.CommandPattern.RollCommand;
 import Game.Decorator.Diesel;
 import Game.Decorator.ElectricEngine;
 import Game.Decorator.Petrol;
@@ -126,7 +129,13 @@ public class GameWindow extends Panel {
                         car.health = 100;
                     }
                     else{
-                        int rolledNumber = Dice.Roll();
+                        //int rolledNumber = Dice.Roll();
+
+                        Dice dice = new Dice();
+                        Controller ctrl = new Controller();
+                        ICommand cmd = new RollCommand(dice);
+                        int rolledNumber = ctrl.run(cmd);
+
                         currentPlayerSquare += rolledNumber;
 
                         if (currentPlayerSquare > 26) {

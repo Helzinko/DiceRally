@@ -1,5 +1,10 @@
 package Game;
 
+import Game.CommandPattern.Controller;
+import Game.CommandPattern.ICommand;
+import Game.CommandPattern.RollCommand;
+import Game.CommandPattern.SendCommand;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,8 +40,14 @@ public class ServerConnection implements Runnable {
                 }
                 else if(msg.command == Command.SEND)
                 {
-                    System.out.println(msg.player.GetName() + " says: " + msg.text);
-                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text);
+                    //Uzkomentuota del command sablono
+                    //System.out.println(msg.player.GetName() + " says: " + msg.text);
+                    //Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text);
+
+                    //Naudojama command sablonui
+                    Controller ctrl = new Controller();
+                    ICommand cmd = new SendCommand(msg);
+                    ctrl.run(cmd, msg);
                 }
                 else if(msg.command == Command.ROLL){
                     String[] messageArray = msg.text.split(",");

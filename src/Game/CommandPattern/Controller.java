@@ -4,6 +4,8 @@
 
 package Game.CommandPattern;
 
+import Game.Message;
+
 import java.util.ArrayList;
 
 public class Controller
@@ -15,10 +17,18 @@ public class Controller
 		return list;
 	}
 
-	public void run(ICommand cmd)
+	public int run(ICommand cmd, Message msg)
 	{
 		list.add(cmd);
-		cmd.execute();
+		int result = cmd.execute(msg);
+		return result;
+	}
+
+	public int run(ICommand cmd)
+	{
+		list.add(cmd);
+		int result = cmd.execute();
+		return result;
 	}
 
 	public void undo()
