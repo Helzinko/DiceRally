@@ -3,9 +3,7 @@ package Game;
 import Game.Builder_Prototype.Car;
 import Game.Builder_Prototype.CarBuilder;
 import Game.Builder_Prototype.Director;
-import Game.CommandPattern.Controller;
-import Game.CommandPattern.ICommand;
-import Game.CommandPattern.RollCommand;
+import Game.CommandPattern.*;
 import Game.Decorator.Diesel;
 import Game.Decorator.ElectricEngine;
 import Game.Decorator.Petrol;
@@ -30,8 +28,10 @@ public class GameWindow extends Panel {
     public static int unitSize = 80;
 
     public static JButton dice;
+    public static JButton pause;
 
     public static int diceSize = 100;
+    public static int pauseButtonSize = 40;
 
     public static int currentPlayerSquare = 1;
     private static int enemyPlayerSquare = 1;
@@ -42,6 +42,7 @@ public class GameWindow extends Panel {
 
     public static String rolledMessage;
     public static boolean rollPressed = false;
+    public static boolean pausePressed = false;
 
     private static Car car;
 
@@ -175,6 +176,43 @@ public class GameWindow extends Panel {
             }
         });
 
+        ImageIcon pauseIcon = new ImageIcon(Images.pause.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0));
+        pause = new JButton(pauseIcon);
+        pause.setBorder(null);
+        pause.setBackground(null);
+        pause.setLayout(null);
+        pause.setBorderPainted(false);
+        pause.setContentAreaFilled(false);
+        pause.setFocusPainted(false);
+        pause.setOpaque(false);
+        pause.setMargin(new Insets(0, 0, 0, 0));
+        gameWindow.add(pause);
+
+        pause.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Controller ctrl = new Controller();
+                //ICommand cmd = new PauseCommand();
+
+                //ctrl.run(cmd);
+
+                //ctrl.undo();
+
+                if(pausePressed) {
+                    canGo = true;
+                    pausePressed=false;
+                    System.out.println("PAUSE");
+                }
+                else
+                {
+                    canGo = false;
+                    pausePressed=true;
+                    System.out.println("START");
+                }
+            }
+        });
+
+
         return gameWindow;
     }
 
@@ -294,6 +332,12 @@ public class GameWindow extends Panel {
         ChangeDice(Integer.parseInt(messageArray[0]));
 
         enemyPlayerSquare = Integer.parseInt(messageArray[1]);
+
+        gameWindow.repaint();
+    }
+
+    public static void EnemyPaused(){
+        canGo = false;
 
         gameWindow.repaint();
     }

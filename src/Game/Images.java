@@ -10,5 +10,6 @@ public class Images {
     public static ImageIcon dice4 = new ImageIcon("src/images/dice_4.png");
     public static ImageIcon dice5 = new ImageIcon("src/images/dice_5.png");
     public static ImageIcon dice6 = new ImageIcon("src/images/dice_6.png");
+    public static ImageIcon pause = new ImageIcon("src/images/pausebutton.png");
 
 }

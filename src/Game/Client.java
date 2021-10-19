@@ -59,6 +59,17 @@ public class Client extends Observer{
                 String message = Wrapper.Encode(player, Command.ROLL, GameWindow.rolledMessage);
                 out.println(message);
             }
+
+            if (GameWindow.pausePressed) {
+                GameWindow.pausePressed = false;
+                String message = Wrapper.Encode(player, Command.PAUSE, "");
+            }
+            else
+            {
+                GameWindow.pausePressed = true;
+                String message = Wrapper.Encode(player, Command.PAUSE, "");
+            }
+
         }
     }
 

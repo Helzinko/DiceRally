@@ -26,6 +26,11 @@ public abstract class ICommand
 		this.target1 = target1;
 	}
 
+	public ICommand()
+	{
+		super();
+	}
+
 	public abstract int execute( );
 
 	public abstract int execute(Message msg);

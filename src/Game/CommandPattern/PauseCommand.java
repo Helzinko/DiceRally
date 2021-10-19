@@ -11,8 +11,8 @@ import Game.Message;
 public class PauseCommand extends ICommand
 {
 
-    public PauseCommand(Message target) {
-        super(target);
+    public PauseCommand() {
+        super();
     }
 
     @Override

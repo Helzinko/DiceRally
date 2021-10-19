@@ -58,7 +58,15 @@ public class ServerConnection implements Runnable {
                             GameWindow.EnemyRolled(messageArray);
                         }
                     }
+                }
+                else if(msg.command == Command.PAUSE){
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " paused game ");
 
+                    if(Client.playerName != null){
+                        if(!Client.playerName.equals(msg.player.GetName())){
+                            GameWindow.EnemyPaused();
+                        }
+                    }
                 }
             }
         }catch (IOException e){
