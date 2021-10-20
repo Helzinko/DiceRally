@@ -17,13 +17,8 @@ public class RollCommand extends ICommand
 
     @Override
     public int execute() {
-        int rolledNumber = Dice.Roll();
+        int rolledNumber = this.dice.Roll();
         return  rolledNumber;
-    }
-
-    @Override
-    public int execute(Message msg) {
-        return 0;
     }
 
     @Override

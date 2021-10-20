@@ -50,8 +50,9 @@ public class Client extends Observer{
             }
         }
 
+
         while (true) {
-            //String text = keyboard.readLine();
+            //String text = keyboard.readLine();F
             Thread.yield();
 
             if (GameWindow.rollPressed) {
@@ -62,14 +63,10 @@ public class Client extends Observer{
 
             if (GameWindow.pausePressed) {
                 GameWindow.pausePressed = false;
+                //GameWindow.playPressed = true;
                 String message = Wrapper.Encode(player, Command.PAUSE, "");
+                out.println(message);
             }
-            else
-            {
-                GameWindow.pausePressed = true;
-                String message = Wrapper.Encode(player, Command.PAUSE, "");
-            }
-
         }
     }
 

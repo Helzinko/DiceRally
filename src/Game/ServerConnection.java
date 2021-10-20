@@ -32,7 +32,7 @@ public class ServerConnection implements Runnable {
                 String serverResponse = in.readLine();
 
                 Message msg = Wrapper.Decode(serverResponse, playerID);
-
+                Chat.AddMessage(DateFormat.CurrentTime() + msg.command);
                 if(msg.command == Command.CONNECT)
                 {
                     System.out.println(msg.player.GetName() + msg.text);
@@ -47,7 +47,7 @@ public class ServerConnection implements Runnable {
                     //Naudojama command sablonui
                     Controller ctrl = new Controller();
                     ICommand cmd = new SendCommand(msg);
-                    ctrl.run(cmd, msg);
+                    ctrl.run(cmd);
                 }
                 else if(msg.command == Command.ROLL){
                     String[] messageArray = msg.text.split(",");
@@ -60,8 +60,6 @@ public class ServerConnection implements Runnable {
                     }
                 }
                 else if(msg.command == Command.PAUSE){
-                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " paused game ");
-
                     if(Client.playerName != null){
                         if(!Client.playerName.equals(msg.player.GetName())){
                             GameWindow.EnemyPaused();

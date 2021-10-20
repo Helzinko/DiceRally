@@ -17,13 +17,6 @@ public class Controller
 		return list;
 	}
 
-	public int run(ICommand cmd, Message msg)
-	{
-		list.add(cmd);
-		int result = cmd.execute(msg);
-		return result;
-	}
-
 	public int run(ICommand cmd)
 	{
 		list.add(cmd);

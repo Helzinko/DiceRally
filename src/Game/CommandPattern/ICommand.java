@@ -3,37 +3,36 @@
  */
 
 package Game.CommandPattern;
-import Game.Builder_Prototype.Car;
-import Game.Chat;
 import Game.Dice;
-import Game.GameWindow;
 import Game.Message;
+
+import javax.swing.*;
 
 public abstract class ICommand
 {
-	protected Dice target;
-	protected Message target1;
+	protected Dice dice;
+	protected Message message;
+	protected JButton button;
 
-	public ICommand(Dice target)
+	public ICommand(Dice dice)
 	{
 		super();
-		this.target = target;
+		this.dice = dice;
 	}
 
-	public ICommand(Message target1)
+	public ICommand(Message message)
 	{
 		super();
-		this.target1 = target1;
+		this.message = message;
 	}
 
-	public ICommand()
+	public ICommand(JButton button)
 	{
 		super();
+		this.button = button;
 	}
 
 	public abstract int execute( );
-
-	public abstract int execute(Message msg);
 	
 	public abstract void undo( );
 }

@@ -11,12 +11,13 @@ public class Wrapper {
 
         if(Command.CONNECT.name().equals(messageArray[1]))
             command = Command.CONNECT;
+        else if(Command.PAUSE.name().equals(messageArray[1]))
+            command = Command.PAUSE;
         else if(Command.ROLL.name().equals(messageArray[1]))
             command = Command.ROLL;
         else if(Command.SEND.name().equals(messageArray[1]))
             command = Command.SEND;
-        else if(Command.PAUSE.name().equals(messageArray[1]))
-            command = Command.PAUSE;
+
 
         String text = messageArray[2];
 

@@ -4,29 +4,26 @@
 
 package Game.CommandPattern;
 
-import Game.Builder_Prototype.Car;
-import Game.GameWindow;
+import Game.Images;
 import Game.Message;
+
+import javax.swing.*;
 
 public class PauseCommand extends ICommand
 {
 
-    public PauseCommand() {
-        super();
+    public PauseCommand(JButton pause) {
+        super(pause);
     }
 
     @Override
     public int execute() {
-        return 0;
-    }
-
-    @Override
-    public int execute(Message msg) {
+        this.button.setIcon(new ImageIcon(Images.play.getImage().getScaledInstance(40, 40, 0)));
         return 0;
     }
 
     @Override
     public void undo() {
-
+        this.button.setIcon(new ImageIcon(Images.pause.getImage().getScaledInstance(40, 40, 0)));
     }
 }
