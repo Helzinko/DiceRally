@@ -198,22 +198,19 @@ public class GameWindow extends Panel {
                 ICommand cmd = new PauseCommand(pause);
                 if(canPause)
                 {
-                    pausePressedCount++;
                     if(!pausePlayPressed) {
-                        //canGo = false;
+                        canGo = false;
                         pausePlayPressed = true;
-                        System.out.println("PAUSE!!");
                         ctrl.run(cmd);
                     }
                     else if(pausePlayPressed)
                     {
-                        //canGo = true;
+                        canGo = true;
                         pausePlayPressed = false;
-                        System.out.println("PLAY!!");
                         ctrl.run(cmd);
                         ctrl.undo();
-                        canPause=true;
                     }
+                    pausePressedCount++;
                 }
             }
         });
@@ -331,7 +328,7 @@ public class GameWindow extends Panel {
     }
 
     public static void ChangePause(boolean pressed) {
-        if (pressed) {
+        if (!pressed) {
             pause.setIcon(new ImageIcon(Images.pause.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
         } else {
             pause.setIcon(new ImageIcon(Images.play.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
@@ -349,16 +346,18 @@ public class GameWindow extends Panel {
     }
 
     public static void EnemyPaused(boolean pressed){
-        //canGo = false;
-        /*if(!pressed)
+
+        if(!pressed)
         {
-            canPause = true;
+            canGo = false;
+            //canPause = true;
         }
         else
         {
-            canPause = false;
-        }*/
-        ChangePause(pressed);
+            canGo = true;
+            //canPause = false;
+        }
+        //ChangePause(pressed);
     }
 
 }
