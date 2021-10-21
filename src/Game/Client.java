@@ -15,7 +15,7 @@ public class Client extends Observer{
 
     public static void main(String[] args) throws IOException {
         chat = new Chat();
-
+        int pausepressedCount = 1;
         Client client = new Client();
         client.subject = chat.instance;
         client.subject.attach(client);
@@ -61,11 +61,19 @@ public class Client extends Observer{
                 out.println(message);
             }
 
-            if (GameWindow.pausePressed) {
-                GameWindow.pausePressed = false;
-                //GameWindow.playPressed = true;
-                String message = Wrapper.Encode(player, Command.PAUSE, "");
+            if (pausepressedCount==GameWindow.pausePressedCount) {
+                String message;
+                System.out.println(pausepressedCount);
+                if(pausepressedCount%2==0)
+                {
+                    message = Wrapper.Encode(player, Command.PAUSE, "PLAY!");
+                }
+                else
+                {
+                    message = Wrapper.Encode(player, Command.PAUSE, "PAUSE!");
+                }
                 out.println(message);
+                pausepressedCount++;
             }
         }
     }

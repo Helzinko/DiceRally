@@ -18,6 +18,7 @@ public class GameWindow extends Panel {
 
     private static int playedID;
     public static boolean canGo;
+    public static boolean canPause = true;
     public static Color playerColor;
     public static Color enemyColor;
     public static String carType;
@@ -43,8 +44,7 @@ public class GameWindow extends Panel {
     public static String rolledMessage;
     public static boolean rollPressed = false;
 
-    public static boolean pausePressed = false;
-    public static boolean playPressed = true;
+    public static int pausePressedCount = 0;
     public static boolean pausePlayPressed = false;
 
     private static Car car;
@@ -196,32 +196,25 @@ public class GameWindow extends Panel {
             public void actionPerformed(ActionEvent e) {
                 Controller ctrl = new Controller();
                 ICommand cmd = new PauseCommand(pause);
-                //pausePlayPressed = true;
-                //ctrl.run(cmd);
-
-                //ctrl.undo();
-
-                if(!pausePlayPressed) {
-                    //canGo = false;
-                    pausePressed=true;
-                    playPressed=false;
-                    pausePlayPressed = true;
-                    System.out.println("PAUSE!!");
-                    ctrl.run(cmd);
-                    //pause.setIcon(new ImageIcon(Images.play.getImage().getScaledInstance(40, 40, 0)));
-                }
-                else if(pausePlayPressed)
+                if(canPause)
                 {
-                    //canGo = true;
-                    pausePressed=true;
-                    playPressed=true;
-                    pausePlayPressed = false;
-                    System.out.println("START!!");
-                    ctrl.undo();
-                    //pause.setIcon(new ImageIcon(Images.pause.getImage().getScaledInstance(40, 40, 0)));
+                    pausePressedCount++;
+                    if(!pausePlayPressed) {
+                        //canGo = false;
+                        pausePlayPressed = true;
+                        System.out.println("PAUSE!!");
+                        ctrl.run(cmd);
+                    }
+                    else if(pausePlayPressed)
+                    {
+                        //canGo = true;
+                        pausePlayPressed = false;
+                        System.out.println("PLAY!!");
+                        ctrl.run(cmd);
+                        ctrl.undo();
+                        canPause=true;
+                    }
                 }
-
-                //ChangePause(pausePressed);
             }
         });
         return gameWindow;
@@ -340,7 +333,7 @@ public class GameWindow extends Panel {
     public static void ChangePause(boolean pressed) {
         if (pressed) {
             pause.setIcon(new ImageIcon(Images.pause.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
-        } else if (!pressed) {
+        } else {
             pause.setIcon(new ImageIcon(Images.play.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
         }
     }
@@ -355,12 +348,17 @@ public class GameWindow extends Panel {
         gameWindow.repaint();
     }
 
-    public static void EnemyPaused(){
+    public static void EnemyPaused(boolean pressed){
         //canGo = false;
-
-        ChangePause(pausePressed);
-
-        gameWindow.repaint();
+        /*if(!pressed)
+        {
+            canPause = true;
+        }
+        else
+        {
+            canPause = false;
+        }*/
+        ChangePause(pressed);
     }
 
 }

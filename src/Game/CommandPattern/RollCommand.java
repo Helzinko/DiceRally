@@ -11,8 +11,8 @@ import Game.Message;
 public class RollCommand extends ICommand
 {
 
-    public RollCommand(Dice target) {
-        super(target);
+    public RollCommand(Dice dice) {
+        super(dice);
     }
 
     @Override

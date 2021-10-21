@@ -32,7 +32,6 @@ public class ServerConnection implements Runnable {
                 String serverResponse = in.readLine();
 
                 Message msg = Wrapper.Decode(serverResponse, playerID);
-                Chat.AddMessage(DateFormat.CurrentTime() + msg.command);
                 if(msg.command == Command.CONNECT)
                 {
                     System.out.println(msg.player.GetName() + msg.text);
@@ -53,16 +52,18 @@ public class ServerConnection implements Runnable {
                     String[] messageArray = msg.text.split(",");
                     Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " rolled: " + messageArray[0]);
 
-                    if(Client.playerName != null){
-                        if(!Client.playerName.equals(msg.player.GetName())){
+                    //if(Client.playerName != null){
+                        //if(!Client.playerName.equals(msg.player.GetName())){
                             GameWindow.EnemyRolled(messageArray);
-                        }
-                    }
+                        //}
+                    //}
                 }
                 else if(msg.command == Command.PAUSE){
+                    String[] messageArray = msg.text.split(",");
+                    Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " " + messageArray[0]);
                     if(Client.playerName != null){
-                        if(!Client.playerName.equals(msg.player.GetName())){
-                            GameWindow.EnemyPaused();
+                        if(Client.playerName.equals(msg.player.GetName())){
+                            GameWindow.EnemyPaused(GameWindow.pausePlayPressed);
                         }
                     }
                 }
