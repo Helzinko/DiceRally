@@ -63,7 +63,6 @@ public class Client extends Observer{
 
             if (pausepressedCount==GameWindow.pausePressedCount) {
                 String message;
-                System.out.println(pausepressedCount);
                 if(pausepressedCount%2==0)
                 {
                     message = Wrapper.Encode(player, Command.PAUSE, "PLAY!");

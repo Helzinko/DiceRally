@@ -205,9 +205,10 @@ public class GameWindow extends Panel {
                     }
                     else if(pausePlayPressed)
                     {
+                        ctrl.run(cmd);
                         canGo = true;
                         pausePlayPressed = false;
-                        ctrl.run(cmd);
+
                         ctrl.undo();
                     }
                     pausePressedCount++;
