@@ -48,6 +48,8 @@ public class GameWindow extends Panel {
     public static boolean pausePlayPressed = false;
 
     private static Car car;
+    private static Car decoratedVehicle;
+    private static Car decoratedVehicle1;
 
     public static GameWindow ShowWindow()
     {
@@ -55,7 +57,6 @@ public class GameWindow extends Panel {
 
         Director director = new Director();
         CarBuilder builder = new CarBuilder();
-
         switch (carType){
             case "Race Car":
                 director.constructRaceCar(builder);
@@ -66,27 +67,29 @@ public class GameWindow extends Panel {
                 Car deepCopy = builder.getCar().copyDeep();
 
 
-                Car decoratedCar = new ElectricEngine(car);
-                Car decoratedCar1 = new Petrol(decoratedCar);
-                decoratedCar1.getFuelType();
+                decoratedVehicle = new ElectricEngine(car);
+                decoratedVehicle1 = new Petrol(decoratedVehicle);
+                decoratedVehicle1.getFuelType();
                 System.out.println("primary shield: " + car.getShield().getType() + " | " + System.identityHashCode(car.getShield()));
                 System.out.println("shallow copy shield: " + shallowCopy.getShield().getType() + " | " + System.identityHashCode(shallowCopy.getShield()));
                 System.out.println("deep copy shield: " + deepCopy.getShield().getType() + " | " + System.identityHashCode(deepCopy.getShield()));
-
+                break;
             case "Rally Car":
                 director.constructRallyCar(builder);
                 System.out.println(builder.getResult());
                 Car carRally = builder.getCar();
-                Car decoratedCarRally = new ElectricEngine(carRally);
-                Car decoratedCarRally1 = new Diesel(decoratedCarRally);
-                decoratedCarRally1.getFuelType();
-            case "Truck Car":
+                decoratedVehicle = new ElectricEngine(carRally);
+                decoratedVehicle1 = new Diesel(decoratedVehicle);
+                decoratedVehicle1.getFuelType();
+                break;
+            default:
                 director.constructTruckCar(builder);
                 System.out.println(builder.getResult());
                 Car carTruck = builder.getCar();
-                Car decoratedCarTruck = new ElectricEngine(carTruck);
-                Car decoratedCarTruck1 = new BioFuel(decoratedCarTruck);
-                decoratedCarTruck1.getFuelType();
+                decoratedVehicle = new ElectricEngine(carTruck);
+                decoratedVehicle1 = new BioFuel(decoratedVehicle);
+                decoratedVehicle1.getFuelType();
+                break;
         }
 
         car = builder.getCar();

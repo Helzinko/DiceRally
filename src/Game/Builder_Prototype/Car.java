@@ -1,5 +1,7 @@
 package Game.Builder_Prototype;
 
+import Game.Adapter.RegularFuelPistol;
+
 public class Car implements Cloneable
 {
     private BodyType bodyType;
@@ -10,6 +12,7 @@ public class Car implements Cloneable
     private CarColor color;
     public double fuel;
     public double health;
+    private RegularFuelPistol pistol;
 
     public Car(BodyType bodyType, double power, FuelType fuelType, Shield shield, Antena antena, CarColor color)
     {
@@ -76,5 +79,10 @@ public class Car implements Cloneable
             e.printStackTrace();
             return null;
         }
+    }
+
+    public double fillCarTank(RegularFuelPistol pistol){
+        this.pistol = pistol;
+        return pistol.fill(this);
     }
 }
