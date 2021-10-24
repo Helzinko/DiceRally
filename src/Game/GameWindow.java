@@ -9,10 +9,13 @@ import Game.Decorator.ElectricEngine;
 import Game.Decorator.Petrol;
 import Game.Decorator.BioFuel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class GameWindow extends Panel {
 
@@ -240,7 +243,11 @@ public class GameWindow extends Panel {
             for ( int column = 0; column < 10; column++ ){
 
                 map[row][column].SetCoord(column*unitSize, row*unitSize);
-                map[row][column].DrawSquare(g2d,column*unitSize, row*unitSize, unitSize, unitSize);
+                try {
+                    map[row][column].DrawSquare(g2d,column*unitSize, row*unitSize, unitSize, unitSize);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if(map[row][column].ReturnType() == 1){
                     //if(map[row][column].ReturnNumber() == 1){
@@ -251,17 +258,22 @@ public class GameWindow extends Panel {
                     //    //g2d.fillRect(column*unitSize, row*unitSize, unitSize, unitSize);
                     //}
 
-                    g2d.setColor(Color.black);
-                    g2d.drawString(String.valueOf(map[row][column].ReturnNumber()), map[row][column].GetCenterCoord()[0], map[row][column].GetCenterCoord()[1]);
-
                     if(map[row][column].ReturnNumber() == currentPlayerSquare){
 //                        drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY(), carType);
-                        drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
+                        try {
+                            drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     if(map[row][column].ReturnNumber() == enemyPlayerSquare){
 //                        drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY(), carType);
-                        drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
+                        try {
+                            drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
@@ -272,16 +284,12 @@ public class GameWindow extends Panel {
         }
     }
 
-    public void drawPlayer(Graphics2D g2d, int x, int y)
-    {
-        g2d.setColor(playerColor);
-        g2d.fillOval(x, y,30,30);
+    public void drawPlayer(Graphics2D g2d, int x, int y) throws IOException {
+        g2d.drawImage(ImageIO.read(new File("src/images/red_car.png")), x+unitSize/2-20, y, 50, 50, null);
     }
 
-    public void drawEnemy(Graphics2D g2d, int x, int y)
-    {
-        g2d.setColor(enemyColor);
-        g2d.fillOval(x + unitSize - 30, y, 30, 30);
+    public void drawEnemy(Graphics2D g2d, int x, int y) throws IOException {
+        g2d.drawImage(ImageIO.read(new File("src/images/blue_car.png")), x+unitSize/2-20, y + 25, 50, 50, null);
     }
 
     public void drawPlayer(Graphics2D g2d, int x, int y, String carType){

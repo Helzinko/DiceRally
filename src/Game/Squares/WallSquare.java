@@ -7,7 +7,10 @@ import Game.Strategy.Crash;
 import Game.Strategy.DriveBridge;
 import Game.Strategy.SquareAlgorithm;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class WallSquare implements Square {
 
@@ -62,9 +65,8 @@ public class WallSquare implements Square {
     }
 
     @Override
-    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) {
-        g2d.setColor(Color.GRAY);
-        g2d.fillRect(x, y, width, height);
+    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException {
+        g2d.drawImage(ImageIO.read(new File("src/images/Default/wallTexture_01.png")), x, y, width, height, null);
     }
 
     @Override

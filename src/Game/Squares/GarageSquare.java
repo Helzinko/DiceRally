@@ -7,7 +7,10 @@ import Game.Strategy.DriveBridge;
 import Game.Strategy.Fix;
 import Game.Strategy.SquareAlgorithm;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class GarageSquare implements Square {
 
@@ -61,9 +64,8 @@ public class GarageSquare implements Square {
     }
 
     @Override
-    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) {
-        g2d.setColor(Color.PINK);
-        g2d.fillRect(x, y, width, height);
+    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException {
+        g2d.drawImage(ImageIO.read(new File("src/images/Default/garage_01.png")), x, y, width, height, null);
     }
 
     @Override

@@ -4,6 +4,7 @@ import Game.Builder_Prototype.Car;
 import Game.Strategy.SquareAlgorithm;
 
 import java.awt.*;
+import java.io.IOException;
 
 public interface Square {
 
@@ -19,7 +20,7 @@ public interface Square {
 
     public int ReturnY();
 
-    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height);
+    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException;
 
     public SquareAlgorithm getSquareAlgorithm();
 

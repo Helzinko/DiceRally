@@ -7,7 +7,10 @@ import Game.Strategy.DriveBridge;
 import Game.Strategy.Jump;
 import Game.Strategy.SquareAlgorithm;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class RampSquare implements Square {
 
@@ -16,14 +19,17 @@ public class RampSquare implements Square {
     public int addition = 3;
     public int damage = 5;
 
+    public int angle = 0;
+
     public int x;
     public int y;
 
-    public RampSquare(int type, int number) {
+    public RampSquare(int type, int number, int angle) {
 
         this.type = type;
         this.number = number;
 
+        this.angle = angle;
     }
 
     @Override
@@ -63,9 +69,15 @@ public class RampSquare implements Square {
     }
 
     @Override
-    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) {
-        g2d.setColor(Color.yellow);
-        g2d.fillRect(x, y, width, height);
+    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException {
+        switch (angle) {
+            case 1:
+                g2d.drawImage(ImageIO.read(new File("src/images/Default/ramp_01.png")), x, y, width, height, null);
+                break;
+            case 2:
+                g2d.drawImage(ImageIO.read(new File("src/images/Default/ramp_02.png")), x, y, width, height, null);
+                break;
+        }
     }
 
     @Override
