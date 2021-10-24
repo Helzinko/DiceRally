@@ -5,7 +5,7 @@ import Game.Chat;
 
 public class RegularFuelPistol {
     public double fill(Car car){
-        Chat.AddMessage("Regular car was filled up to 60l of " + car.getFuelType());
+        Chat.AddMessage("Your rally car was filled up to 60l of " + car.getFuelType());
         return 60;
     }
 }
