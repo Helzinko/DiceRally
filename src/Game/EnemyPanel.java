@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ProfilePanel extends Panel{
+public class EnemyPanel extends Panel{
 
     private static BufferedImage profilePic;
 
@@ -15,17 +15,24 @@ public class ProfilePanel extends Panel{
     private static int panelWidth;
     private static int panelHeight;
 
-    public ProfilePanel(int width, int height, boolean needBorder) {
+    private static String name;
+
+    public EnemyPanel(int width, int height, boolean needBorder) {
         super(width, height, needBorder);
     }
 
-    public static Panel PaintProfilePanel(Panel panel, Person person) throws IOException {
+    public static Panel PaintProfilePanel(Panel panel, Person person, String enemyName) throws IOException {
+
+
+        System.out.println("Help me 2");
         panelWidth = panel.pWidth;
         panelHeight = panel.pHeight;
 
-        ProfilePanel profilePanel = new ProfilePanel(panelWidth, panelHeight, true);
+        EnemyPanel profilePanel = new EnemyPanel(panelWidth, panelHeight, true);
 
         profilePic = person.getAvatar();
+
+        name = enemyName;
 
         return profilePanel;
     }
@@ -34,8 +41,9 @@ public class ProfilePanel extends Panel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(profilePic, panelWidth/2-picSize/2, 0, picSize, picSize, this);
+
         g.setColor(Color.black);
-        String name = Client.playerName;
+
         g.drawString(name,  panelWidth / 2 ,300);
     }
 }

@@ -1,14 +1,13 @@
 package Game;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Game.PlayerProfile.AbstractFactory;
+import Game.PlayerProfile.FactoryProducer;
+import Game.PlayerProfile.Person;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+
+import java.awt.*;
+
 import java.io.IOException;
 
 public class Frame extends JFrame {
@@ -18,9 +17,16 @@ public class Frame extends JFrame {
     public static int mainFrameWidth = 1920;
     public static int mainFrameHeight = 1080;
 
+    public static JFrame frame;
+
+    private static boolean enemyAlreadyExist = false;
+
+    private static Panel player1Panel;
+    private static Panel player2Panel;
+
     public static void ShowFrame() throws IOException {
 
-        JFrame frame = new JFrame("Dice Rally");
+        frame = new JFrame("Dice Rally");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Panel gameWindow = GameWindow.ShowWindow();
@@ -28,23 +34,63 @@ public class Frame extends JFrame {
 
         Panel chatPanel = new Panel(mainFrameWidth, mainFrameHeight - GameWindow.windowSize, true);
         Chat.ChatPanel(chatPanel);
-        frame.add(chatPanel, BorderLayout.SOUTH);
 
-        if(Client.playerID == 1){
-            Panel player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-            frame.add(ProfilePanel.PaintProfilePanel(player1Panel), BorderLayout.EAST);
-            frame.add(new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true), BorderLayout.WEST);
-        }
-        else if(Client.playerID == 0){
-            frame.add(new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true), BorderLayout.EAST);
-            Panel player2Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-            frame.add(ProfilePanel.PaintProfilePanel(player2Panel), BorderLayout.WEST);
-        }
+        DrawPlayersProfile();
+
+        frame.add(chatPanel, BorderLayout.SOUTH);
 
         frame.pack();
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
+    public static void DrawPlayersProfile() throws IOException {
+        boolean isMale = true;
+
+        if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
+            isMale = false;
+        }
+
+        String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
+
+        AbstractFactory shapeFactory = FactoryProducer.getFactory(isMale);
+        Person person = shapeFactory.getPerson(hairColor);
+
+        if(Client.playerID == 1){
+            player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
+            frame.add(ProfilePanel.PaintProfilePanel(player1Panel, person), BorderLayout.WEST);
+        }
+        else if(Client.playerID == 0){
+            player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
+            frame.add(ProfilePanel.PaintProfilePanel(player1Panel, person), BorderLayout.WEST);
+        }
+    }
+
+    public static void DrawEnemyProfile(Person enemy, String enemyName) throws IOException {
+        if(!enemyAlreadyExist){
+            if(Client.playerID == 1){
+                player2Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
+                frame.add(EnemyPanel.PaintProfilePanel(player2Panel, enemy, enemyName), BorderLayout.EAST);
+            }
+            else if(Client.playerID == 0){
+                player2Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
+                frame.add(EnemyPanel.PaintProfilePanel(player2Panel, enemy, enemyName), BorderLayout.EAST);
+
+                boolean isMale = true;
+                if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
+                    isMale = false;
+                }
+                String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
+
+                String profile = Wrapper.Encode(Client.player, Command.PROFILE, hairColor+"-"+isMale+"-"+Client.playerName);
+                Client.out.println(profile);
+            }
+
+            enemyAlreadyExist = true;
+        }
+
+    }
+
 
 }

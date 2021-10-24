@@ -17,6 +17,8 @@ public class Wrapper {
             command = Command.ROLL;
         else if(Command.SEND.name().equals(messageArray[1]))
             command = Command.SEND;
+        else if(Command.PROFILE.name().equals(messageArray[1]))
+            command = Command.PROFILE;
 
 
         String text = messageArray[2];

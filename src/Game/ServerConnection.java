@@ -4,6 +4,9 @@ import Game.CommandPattern.Controller;
 import Game.CommandPattern.ICommand;
 import Game.CommandPattern.RollCommand;
 import Game.CommandPattern.SendCommand;
+import Game.PlayerProfile.AbstractFactory;
+import Game.PlayerProfile.FactoryProducer;
+import Game.PlayerProfile.Person;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,6 +68,16 @@ public class ServerConnection implements Runnable {
                         if(!Client.playerName.equals(msg.player.GetName())){
                             GameWindow.EnemyPaused(GameWindow.pausePlayPressed);
                         }
+                    }
+                }
+                else if(msg.command == Command.PROFILE){
+                    String[] messageArray = msg.text.split(",");
+                    String[] profileArray = messageArray[0].split("-");
+
+                    if(!msg.player.GetName().equals(Client.playerName)){
+                        AbstractFactory shapeFactory = FactoryProducer.getFactory(Boolean.parseBoolean(profileArray[1]));
+                        Person person = shapeFactory.getPerson(profileArray[0]);
+                        Frame.DrawEnemyProfile(person, profileArray[2]);
                     }
                 }
             }

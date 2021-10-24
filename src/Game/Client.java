@@ -1,5 +1,9 @@
 package Game;
 
+import Game.PlayerProfile.AbstractFactory;
+import Game.PlayerProfile.FactoryProducer;
+import Game.PlayerProfile.Person;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -44,15 +48,26 @@ public class Client extends Observer{
                 String text = " connected as ";
                 Frame.ShowFrame();
                 carType = LoginWindow.inputCarType.getSelectedItem().toString();
+
                 String message = Wrapper.Encode(player, Command.CONNECT, text) + carType;
                 out.println(message);
+
+                boolean isMale = true;
+                if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
+                    isMale = false;
+                }
+                String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
+
+                String profile = Wrapper.Encode(player, Command.PROFILE, hairColor+"-"+isMale+"-"+playerName);
+                out.println(profile);
+
                 canContinue = true;
             }
         }
 
 
         while (true) {
-            //String text = keyboard.readLine();F
+            //String text = keyboard.readLine();
             Thread.yield();
 
             if (GameWindow.rollPressed) {
