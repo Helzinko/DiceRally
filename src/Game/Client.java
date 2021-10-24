@@ -76,6 +76,12 @@ public class Client extends Observer{
                 out.println(message);
             }
 
+            if (GameWindow.needUpdate) {
+                GameWindow.needUpdate = false;
+                String message2 = Wrapper.Encode(player, Command.UPDATE_PROFILE, GameWindow.updateMessage);
+                out.println(message2);
+            }
+
             if (pausepressedCount==GameWindow.pausePressedCount) {
                 String message;
                 if(pausepressedCount%2==0)

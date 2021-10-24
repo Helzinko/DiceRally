@@ -14,20 +14,21 @@ public class ProfilePanel extends Panel{
 
     private static int panelWidth;
     private static int panelHeight;
+    double fuel;
+    double health;
 
-    public ProfilePanel(int width, int height, boolean needBorder) {
+    public ProfilePanel(int width, int height, boolean needBorder, double fuel, double health) {
         super(width, height, needBorder);
+        this.fuel = fuel;
+        this.health = health;
     }
 
-    public static Panel PaintProfilePanel(Panel panel, Person person) throws IOException {
+    public Panel PaintProfilePanel(Panel panel, Person person) throws IOException {
         panelWidth = panel.pWidth;
         panelHeight = panel.pHeight;
-
-        ProfilePanel profilePanel = new ProfilePanel(panelWidth, panelHeight, true);
-
         profilePic = person.getAvatar();
 
-        return profilePanel;
+        return this;
     }
 
     @Override
@@ -37,5 +38,13 @@ public class ProfilePanel extends Panel{
         g.setColor(Color.black);
         String name = Client.playerName;
         g.drawString(name,  panelWidth / 2 ,300);
+        g.drawString("Fuel: " + fuel,  panelWidth / 2 ,315);
+        g.drawString("Health: " + health,  panelWidth / 2 ,330);
+    }
+
+    public void updadeInfo(double fuelLeft, double healthLeft){
+        this.fuel = fuelLeft;
+        this.health = healthLeft;
+        repaint();
     }
 }

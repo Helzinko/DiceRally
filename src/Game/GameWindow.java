@@ -40,6 +40,9 @@ public class GameWindow extends Panel {
     public static int currentPlayerSquare = 1;
     private static int enemyPlayerSquare = 1;
 
+    public static boolean needUpdate = false;
+    public static String updateMessage;
+
     public GameWindow (int width, int height, boolean needBorder) {
         super(width, height, needBorder);
     }
@@ -157,6 +160,8 @@ public class GameWindow extends Panel {
                             for ( int column = 0; column < 10; column++ ){
                                 if(currentPlayerSquare ==map[row][column].ReturnNumber()){
                                     double[] resultsAfterRoll = map[row][column].getSquareAlgorithm().doSquareAction(currentPlayerSquare, car, rolledNumber);
+                                    needUpdate = true;
+                                    updateMessage = car.fuel + "," + car.health;
                                     currentPlayerSquare = (int)resultsAfterRoll[0];
                                     car.fuel = resultsAfterRoll[1];
                                     car.health = resultsAfterRoll[2];
@@ -171,7 +176,7 @@ public class GameWindow extends Panel {
                                 break;
                             }
                         }
-                        rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare);
+                        rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare) + "," + String.valueOf(car.fuel) + "," + String.valueOf(car.health);
                         System.out.println("Formed: " + rolledMessage);
 
                         ChangeDice(rolledNumber);

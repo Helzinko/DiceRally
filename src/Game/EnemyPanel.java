@@ -14,27 +14,27 @@ public class EnemyPanel extends Panel{
 
     private static int panelWidth;
     private static int panelHeight;
+    double fuel;
+    double health;
 
     private static String name;
 
-    public EnemyPanel(int width, int height, boolean needBorder) {
+    public EnemyPanel(int width, int height, boolean needBorder, double fuel, double health) {
         super(width, height, needBorder);
+        this.fuel = fuel;
+        this.health = health;
     }
 
-    public static Panel PaintProfilePanel(Panel panel, Person person, String enemyName) throws IOException {
+    public Panel PaintProfilePanel(Panel panel, Person person, String enemyName) throws IOException {
 
-
-        System.out.println("Help me 2");
         panelWidth = panel.pWidth;
         panelHeight = panel.pHeight;
-
-        EnemyPanel profilePanel = new EnemyPanel(panelWidth, panelHeight, true);
 
         profilePic = person.getAvatar();
 
         name = enemyName;
 
-        return profilePanel;
+        return this;
     }
 
     @Override
@@ -45,5 +45,13 @@ public class EnemyPanel extends Panel{
         g.setColor(Color.black);
 
         g.drawString(name,  panelWidth / 2 ,300);
+        g.drawString("Fuel: " + fuel,  panelWidth / 2 ,315);
+        g.drawString("Health: " + health,  panelWidth / 2 ,330);
+    }
+
+    public void updadeInfo(double fuelLeft, double healthLeft){
+        this.fuel = fuelLeft;
+        this.health = healthLeft;
+        repaint();
     }
 }

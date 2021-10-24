@@ -21,8 +21,13 @@ public class Frame extends JFrame {
 
     private static boolean enemyAlreadyExist = false;
 
-    private static Panel player1Panel;
-    private static Panel player2Panel;
+    public static Panel player1Panel;
+    public static Panel player2Panel;
+
+    private static ProfilePanel profilePanel;
+    private static EnemyPanel enemyProfilePanel;
+
+    private static Person person;
 
     public static void ShowFrame() throws IOException {
 
@@ -55,27 +60,34 @@ public class Frame extends JFrame {
         String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
 
         AbstractFactory shapeFactory = FactoryProducer.getFactory(isMale);
-        Person person = shapeFactory.getPerson(hairColor);
+        person = shapeFactory.getPerson(hairColor);
 
-        if(Client.playerID == 1){
+//        if(Client.playerID == 1){
+//            player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
+//            profilePanel = new ProfilePanel(player1Panel.pWidth, player1Panel.pHeight, true, 60, 100);
+//            frame.add(profilePanel.PaintProfilePanel(player1Panel, person), BorderLayout.WEST);
+//        }
+//        else if(Client.playerID == 0){
             player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-            frame.add(ProfilePanel.PaintProfilePanel(player1Panel, person), BorderLayout.WEST);
-        }
-        else if(Client.playerID == 0){
-            player1Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-            frame.add(ProfilePanel.PaintProfilePanel(player1Panel, person), BorderLayout.WEST);
-        }
+            profilePanel = new ProfilePanel(player1Panel.pWidth, player1Panel.pHeight, true, 60, 100);
+            profilePanel.PaintProfilePanel(player1Panel, person);
+            frame.add(profilePanel, BorderLayout.WEST);
+//        }
     }
 
     public static void DrawEnemyProfile(Person enemy, String enemyName) throws IOException {
         if(!enemyAlreadyExist){
             if(Client.playerID == 1){
                 player2Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-                frame.add(EnemyPanel.PaintProfilePanel(player2Panel, enemy, enemyName), BorderLayout.EAST);
+                enemyProfilePanel = new EnemyPanel(player2Panel.pWidth, player2Panel.pHeight, true, 60, 100);
+                enemyProfilePanel.PaintProfilePanel(player2Panel, enemy, enemyName);
+                frame.add(enemyProfilePanel, BorderLayout.EAST);
             }
             else if(Client.playerID == 0){
                 player2Panel = new Panel((mainFrameWidth - GameWindow.windowSize) / 2, GameWindow.windowSize, true);
-                frame.add(EnemyPanel.PaintProfilePanel(player2Panel, enemy, enemyName), BorderLayout.EAST);
+                enemyProfilePanel = new EnemyPanel(player2Panel.pWidth, player2Panel.pHeight, true, 60, 100);
+                enemyProfilePanel.PaintProfilePanel(player2Panel, enemy, enemyName);
+                frame.add(enemyProfilePanel, BorderLayout.EAST);
 
                 boolean isMale = true;
                 if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
@@ -92,5 +104,13 @@ public class Frame extends JFrame {
 
     }
 
+    public static void updatePlayerInfo(String playerName, double fuel, double health) throws IOException {
+        if(Client.playerName.equals(playerName)){
+            profilePanel.updadeInfo(fuel, health);
+        }
+        else {
+            enemyProfilePanel.updadeInfo(fuel, health);
+        }
+    }
 
 }

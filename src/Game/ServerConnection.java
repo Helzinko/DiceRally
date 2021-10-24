@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ServerConnection implements Runnable {
     private Socket server;
@@ -54,7 +55,7 @@ public class ServerConnection implements Runnable {
                 else if(msg.command == Command.ROLL){
                     String[] messageArray = msg.text.split(",");
                     Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " rolled: " + messageArray[0]);
-
+                    Frame.updatePlayerInfo(msg.player.GetName(), Double.parseDouble(messageArray[2]), 100);
                     if(Client.playerName != null){
                         if(!Client.playerName.equals(msg.player.GetName())){
                             GameWindow.EnemyRolled(messageArray);
