@@ -8,7 +8,7 @@ public class MapGenerator {
 
         Square[][] map = {
 
-                {new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0)},
+                {new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(11, 0)},
                 {new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new RoadSquare(1, 24, 3) ,new GasSquare(1, 23) ,new RoadSquare(1, 22, 1) ,new RampSquare(1, 21, 1) ,new RoadSquare(1, 20, 1) ,new RoadSquare(1, 19, 1) ,new RoadSquare(1, 18, 4) ,new WaterSquare(0, 0)},
                 {new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new RoadSquare(1, 25, 2) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new RoadSquare(1, 17, 2) ,new WaterSquare(0, 0)},
                 {new WaterSquare(0, 0) ,new RoadSquare(1, 1, 3) ,new RoadSquare(1, 26, 6) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WaterSquare(0, 0) ,new WallSquare(1, 16) ,new WaterSquare(0, 0)},
