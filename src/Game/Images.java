@@ -15,4 +15,6 @@ public class Images {
 
     public static ImageIcon roadHorizontal = new ImageIcon("src/images/Default/roadTexture_01.png");
     public static ImageIcon roadVertical = new ImageIcon("src/images/Default/roadTexture_13.png");
+
+    public static ImageIcon petrol = new ImageIcon("src/images/petrol.jpg");
 }

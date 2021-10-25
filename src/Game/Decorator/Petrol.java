@@ -8,13 +8,15 @@ import Game.Builder_Prototype.*;
 
 public class Petrol extends Decorator
 {
-	public Petrol(Car component) {
-		super(component);
+	public Petrol(Car wrapee) {
+		super(wrapee);
 	}
 
+	@Override
 	public FuelType getFuelType( )
 	{
-		System.out.println(FuelType.PETROL);
+		this.wrapee.getFuelType();
+		System.out.print(" + " + FuelType.PETROL);
 		return FuelType.PETROL;
 	}
 }

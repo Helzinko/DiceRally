@@ -1,13 +1,16 @@
 package Game;
 
+import Game.Builder_Prototype.Builder;
 import Game.Builder_Prototype.Car;
 import Game.Builder_Prototype.CarBuilder;
 import Game.Builder_Prototype.Director;
 import Game.CommandPattern.*;
 import Game.Decorator.Diesel;
+import Game.Facade.Facade;
 import Game.Decorator.ElectricEngine;
 import Game.Decorator.Petrol;
 import Game.Decorator.BioFuel;
+import Game.Facade.Facade;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -32,6 +35,7 @@ public class GameWindow extends Panel {
     public static int unitSize = 80;
 
     public static JButton dice;
+    public static JButton petrol;
     public static JButton pause;
 
     public static int diceSize = 100;
@@ -53,6 +57,8 @@ public class GameWindow extends Panel {
     public static int pausePressedCount = 0;
     public static boolean pausePlayPressed = false;
 
+    private static Car builderCar;
+    private static Car decoratedCar;
     private static Car car;
     private static Car decoratedVehicle;
     private static Car decoratedVehicle1;
@@ -61,7 +67,7 @@ public class GameWindow extends Panel {
     {
         carType = LoginWindow.inputCarType.getSelectedItem().toString();
 
-        Director director = new Director();
+        /*Director director = new Director();
         CarBuilder builder = new CarBuilder();
         switch (carType){
             case "Race Car":
@@ -100,7 +106,14 @@ public class GameWindow extends Panel {
 
         car = builder.getCar();
 
-        Chat.AddMessage(builder.getResult().toString());
+        Chat.AddMessage(builder.getResult().toString());*/
+
+        Facade facade= new Facade();
+        CarBuilder builder = facade.demoBuilder(carType);
+        decoratedCar = facade.demoDecorator(carType, builder.getCar());
+
+        car = builder.getCar();
+
         playedID = Client.playerID;
 
         if(playedID == 0){
@@ -219,7 +232,6 @@ public class GameWindow extends Panel {
                         ctrl.run(cmd);
                         canGo = true;
                         pausePlayPressed = false;
-
                         ctrl.undo();
                     }
                     pausePressedCount++;

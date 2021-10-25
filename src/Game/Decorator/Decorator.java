@@ -8,11 +8,11 @@ import Game.Builder_Prototype.*;
 
 public abstract class Decorator extends Car {
 
-	private final Car wrapee;
+	protected Car wrapee;
 
 	public Decorator(Car component) {
 		super();
-		wrapee = component;
+		this.wrapee = component;
 	}
 
 	public FuelType getFuelType()

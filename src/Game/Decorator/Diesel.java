@@ -8,14 +8,16 @@ import Game.Builder_Prototype.*;
 
 public class Diesel extends Decorator
 {
-	public Diesel(Car component)
+	public Diesel(Car wrapee)
 	{
-		super(component);
+		super(wrapee);
 	}
 
+	@Override
 	public FuelType getFuelType( )
 	{
-		System.out.println(FuelType.DIESEL);
+		this.wrapee.getFuelType();
+		System.out.println(" + " + FuelType.DIESEL);
 		return FuelType.DIESEL;
 	}
 
