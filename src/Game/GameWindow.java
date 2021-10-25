@@ -285,6 +285,10 @@ public class GameWindow extends Panel {
                 if(map[row][column].ReturnType() == 10){
                     dice.setBounds(map[row][column].ReturnX(), map[row][column].ReturnY(), unitSize, unitSize);
                 }
+
+                if(map[row][column].ReturnType() == 11){
+                    pause.setBounds(map[row][column].ReturnX(), map[row][column].ReturnY(), unitSize, unitSize);
+                }
             }
         }
     }
