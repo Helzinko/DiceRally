@@ -176,8 +176,8 @@ public class GameWindow extends Panel {
                                     needUpdate = true;
                                     updateMessage = car.fuel + "," + car.health;
                                     currentPlayerSquare = (int)resultsAfterRoll[0];
-                                    car.fuel = resultsAfterRoll[1];
-                                    car.health = resultsAfterRoll[2];
+                                    car.fuel = (int)resultsAfterRoll[1];
+                                    car.health = (int)resultsAfterRoll[2];
                                     System.out.println("kuras " + car.fuel);
                                     System.out.println("hp " + car.health);
                                     finishCalculation = true;
@@ -189,7 +189,7 @@ public class GameWindow extends Panel {
                                 break;
                             }
                         }
-                        rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare) + "," + String.valueOf(car.fuel) + "," + String.valueOf(car.health);
+                        rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare) + "," + String.valueOf((int)car.fuel) + "," + String.valueOf((int)car.health);
                         System.out.println("Formed: " + rolledMessage);
 
                         ChangeDice(rolledNumber);

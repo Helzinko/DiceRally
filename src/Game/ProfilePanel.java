@@ -43,8 +43,18 @@ public class ProfilePanel extends Panel{
     }
 
     public void updadeInfo(double fuelLeft, double healthLeft){
-        this.fuel = fuelLeft;
-        this.health = healthLeft;
+        if(fuelLeft < 0){
+            this.fuel = 0;
+        }
+        else {
+            this.fuel = fuelLeft;
+        }
+        if(healthLeft < 0){
+            this.health = 0;
+        }
+        else {
+            this.health = healthLeft;
+        }
         repaint();
     }
 }

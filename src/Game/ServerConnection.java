@@ -55,7 +55,7 @@ public class ServerConnection implements Runnable {
                 else if(msg.command == Command.ROLL){
                     String[] messageArray = msg.text.split(",");
                     Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " rolled: " + messageArray[0]);
-                    Frame.updatePlayerInfo(msg.player.GetName(), Double.parseDouble(messageArray[2]), 100);
+                    Frame.updatePlayerInfo(msg.player.GetName(), Double.parseDouble(messageArray[2]), Double.parseDouble(messageArray[3]));
                     if(Client.playerName != null){
                         if(!Client.playerName.equals(msg.player.GetName())){
                             GameWindow.EnemyRolled(messageArray);
