@@ -17,7 +17,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Ellipse2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -277,6 +276,7 @@ public class GameWindow extends Panel {
                     //}
 
                     if(map[row][column].ReturnNumber() == currentPlayerSquare){
+//                        drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY(), carType);
                         try {
                             drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                         } catch (IOException e) {
@@ -285,6 +285,7 @@ public class GameWindow extends Panel {
                     }
 
                     if(map[row][column].ReturnNumber() == enemyPlayerSquare){
+//                        drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY(), carType);
                         try {
                             drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                         } catch (IOException e) {
@@ -305,21 +306,47 @@ public class GameWindow extends Panel {
     }
 
     public void drawPlayer(Graphics2D g2d, int x, int y) throws IOException {
-        System.out.println(car.getShield().getType());
-        switch (car.getShield().getType()){
-            case("electric shield"):
-                g2d.drawImage(ImageIO.read(new File("src/images/Cars/red_car_electric.png")), x+unitSize/2-20, y, 50, 50, null);
-            case("forcefield shield"):
-                g2d.drawImage(ImageIO.read(new File("src/images/Cars/red_car_forcefield.png")), x+unitSize/2-20, y, 50, 50, null);
-            case("magic shield"):
-                g2d.drawImage(ImageIO.read(new File("src/images/Cars/red_car_magic.png")), x+unitSize/2-20, y, 50, 50, null);
-            default:
-                g2d.drawImage(ImageIO.read(new File("src/images/red_car.png")), x+unitSize/2-20, y, 50, 50, null);
-        }
+        g2d.drawImage(ImageIO.read(new File("src/images/red_car.png")), x+unitSize/2-20, y, 50, 50, null);
     }
 
     public void drawEnemy(Graphics2D g2d, int x, int y) throws IOException {
         g2d.drawImage(ImageIO.read(new File("src/images/blue_car.png")), x+unitSize/2-20, y + 25, 50, 50, null);
+    }
+
+    public void drawPlayer(Graphics2D g2d, int x, int y, String carType){
+        g2d.setColor(playerColor);
+//        g2d.fillOval(x, y, 30, 30);
+        switch (carType) {
+            case "Race Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x, y);
+//                g2d.drawPolygon(new int[]{10, 20, 30}, new int[]{100, 200, 300}, 3);
+            case "Rally Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x, y);
+//                g2d.fillRect(x, y, 20,30);
+            case "Truck Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x, y);
+        }
+    }
+
+    public void drawEnemy(Graphics2D g2d, int x, int y, String carType) {
+        g2d.setColor(enemyColor);
+        //        g2d.fillOval(x, y, 30, 30);
+        switch (carType) {
+            case "Race Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x + unitSize - 30, y);
+//                g2d.drawPolygon(new int[]{10, 20, 30}, new int[]{100, 200, 300}, 3);
+            case "Rally Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x + unitSize - 30, y);
+//                g2d.fillRect(x, y, 20,30);
+            case "Truck Car":
+                g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g2d.drawString(carType, x + unitSize - 30, y);
+        }
     }
 
     public static void ChangeDice(int number) {
