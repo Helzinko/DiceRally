@@ -5,6 +5,7 @@
 package Game.Decorator;
 
 import Game.Builder_Prototype.*;
+import Game.GameWindow;
 
 public class BioFuel extends Decorator
 {
@@ -16,7 +17,7 @@ public class BioFuel extends Decorator
 	public FuelType getFuelType( )
 	{
 		this.wrapee.getFuelType();
-		System.out.println(" + " + FuelType.BIO_FUEL);
+		GameWindow.fuelTypes=GameWindow.fuelTypes+" + "+FuelType.BIO_FUEL;;
 		return FuelType.BIO_FUEL;
 	}
 }

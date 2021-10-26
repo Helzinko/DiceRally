@@ -2,6 +2,7 @@ package Game.Decorator;
 
 import Game.Builder_Prototype.Car;
 import Game.Builder_Prototype.FuelType;
+import Game.GameWindow;
 
 public class Gas extends Decorator{
     public Gas(Car wrapee) {
@@ -12,7 +13,7 @@ public class Gas extends Decorator{
     public FuelType getFuelType( )
     {
         wrapee.getFuelType();
-        System.out.println(" + " + FuelType.GAS);
+        GameWindow.fuelTypes=GameWindow.fuelTypes+" + "+FuelType.GAS;
         return FuelType.GAS;
     }
 }
