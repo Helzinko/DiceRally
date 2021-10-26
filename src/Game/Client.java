@@ -49,7 +49,7 @@ public class Client extends Observer{
                 Frame.ShowFrame();
                 carType = LoginWindow.inputCarType.getSelectedItem().toString();
 
-                String message = Wrapper.Encode(player, Command.CONNECT, text) + carType;
+                String message = Wrapper.Encode(player, Command.CONNECT, text) + carType + " " + GameWindow.fuelTypes;
                 out.println(message);
 
                 boolean isMale = true;

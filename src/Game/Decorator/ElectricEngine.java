@@ -3,7 +3,10 @@ package Game.Decorator;
 import Game.Builder_Prototype.Car;
 import Game.Builder_Prototype.FuelType;
 import Game.Chat;
+import Game.Command;
 import Game.Facade.Facade;
+import Game.GameWindow;
+import Game.Wrapper;
 
 public class ElectricEngine extends Car {
     private Car car;
@@ -16,8 +19,7 @@ public class ElectricEngine extends Car {
 
     public FuelType getFuelType()
     {
-        System.out.print(" |"+FuelType.ELECTRIC);
-        Chat.AddMessage(" |"+FuelType.ELECTRIC);
+        GameWindow.fuelTypes=GameWindow.fuelTypes+"  | "+FuelType.ELECTRIC;
         return FuelType.ELECTRIC;
     }
 }

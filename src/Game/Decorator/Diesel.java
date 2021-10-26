@@ -5,6 +5,7 @@
 package Game.Decorator;
 
 import Game.Builder_Prototype.*;
+import Game.GameWindow;
 
 public class Diesel extends Decorator
 {
@@ -17,7 +18,7 @@ public class Diesel extends Decorator
 	public FuelType getFuelType( )
 	{
 		this.wrapee.getFuelType();
-		System.out.println(" + " + FuelType.DIESEL);
+		GameWindow.fuelTypes=GameWindow.fuelTypes+" + "+FuelType.DIESEL;
 		return FuelType.DIESEL;
 	}
 

@@ -29,6 +29,7 @@ public class GameWindow extends Panel {
     public static Color playerColor;
     public static Color enemyColor;
     public static String carType;
+    public static String fuelTypes="";
 
     public static GameWindow gameWindow;
 
@@ -59,7 +60,7 @@ public class GameWindow extends Panel {
     public static boolean pausePlayPressed = false;
 
     private static Car builderCar;
-    private static Car decoratedCar;
+    public static Car decoratedCar;
     private static Car car;
     private static Car decoratedVehicle;
     private static Car decoratedVehicle1;
@@ -246,7 +247,6 @@ public class GameWindow extends Panel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2d = (Graphics2D) g;
 
         // background;

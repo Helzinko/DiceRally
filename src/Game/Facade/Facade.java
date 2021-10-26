@@ -9,6 +9,7 @@ import Game.Chat;
 import Game.CommandPattern.Controller;
 import Game.CommandPattern.ICommand;
 import Game.Decorator.*;
+import Game.Wrapper;
 
 public class Facade
 {
@@ -52,24 +53,22 @@ public class Facade
 	{
 		switch (carType){
 			case "Race Car":
-				decoratedVehicle = new ElectricEngine(car);
-				decoratedVehicle1 = new Petrol(decoratedVehicle);
-				decoratedVehicle2 = new Gas(decoratedVehicle1);
-
-				System.out.println(decoratedVehicle2.getFuelType().toString());
+				decoratedVehicle1 = new ElectricEngine(car);
+				decoratedVehicle2 = new Petrol(decoratedVehicle1);
+				decoratedVehicle = new Gas(decoratedVehicle2);
+				decoratedVehicle.getFuelType();
 				break;
 			case "Rally Car":
-				decoratedVehicle = new ElectricEngine(car);
-				decoratedVehicle1 = new Diesel(decoratedVehicle);
-				decoratedVehicle1.getFuelType();
+				decoratedVehicle1 = new ElectricEngine(car);
+				decoratedVehicle = new Diesel(decoratedVehicle1);
+				decoratedVehicle.getFuelType();
 				break;
 			default:
-				decoratedVehicle = new ElectricEngine(car);
-				decoratedVehicle1 = new BioFuel(decoratedVehicle);
-				decoratedVehicle1.getFuelType();
+				decoratedVehicle1 = new ElectricEngine(car);
+				decoratedVehicle = new BioFuel(decoratedVehicle1);
+				decoratedVehicle.getFuelType();
 				break;
 		}
-		System.out.println();
-		return decoratedVehicle1;
+		return decoratedVehicle;
 	}
 }
