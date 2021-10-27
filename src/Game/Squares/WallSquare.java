@@ -1,10 +1,8 @@
 package Game.Squares;
 
-import Game.Builder_Prototype.Car;
 import Game.GameWindow;
 import Game.Square;
 import Game.Strategy.Crash;
-import Game.Strategy.DriveBridge;
 import Game.Strategy.SquareAlgorithm;
 
 import javax.imageio.ImageIO;

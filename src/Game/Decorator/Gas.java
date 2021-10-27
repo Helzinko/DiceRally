@@ -1,7 +1,7 @@
 package Game.Decorator;
 
-import Game.Builder_Prototype.Car;
-import Game.Builder_Prototype.FuelType;
+import Game.Builder_Prototype_Bridge.Car;
+import Game.Builder_Prototype_Bridge.FuelType;
 import Game.GameWindow;
 
 public class Gas extends Decorator{

@@ -1,8 +1,7 @@
 package Game.Strategy;
 
 import Game.Adapter.*;
-import Game.Builder_Prototype.Car;
-import Game.Chat;
+import Game.Builder_Prototype_Bridge.Car;
 
 public class PutGas extends SquareAlgorithm{
 

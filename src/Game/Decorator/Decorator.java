@@ -4,7 +4,7 @@
 
 package Game.Decorator;
 
-import Game.Builder_Prototype.*;
+import Game.Builder_Prototype_Bridge.*;
 
 public abstract class Decorator extends Car {
 

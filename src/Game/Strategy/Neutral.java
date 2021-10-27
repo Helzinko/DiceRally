@@ -1,6 +1,6 @@
 package Game.Strategy;
 
-import Game.Builder_Prototype.Car;
+import Game.Builder_Prototype_Bridge.Car;
 
 public class Neutral extends SquareAlgorithm{
 

@@ -1,6 +1,5 @@
 package Game;
 
-import Game.Builder_Prototype.Car;
 import Game.Strategy.SquareAlgorithm;
 
 import java.awt.*;

@@ -1,12 +1,8 @@
 package Game.Decorator;
 
-import Game.Builder_Prototype.Car;
-import Game.Builder_Prototype.FuelType;
-import Game.Chat;
-import Game.Command;
-import Game.Facade.Facade;
+import Game.Builder_Prototype_Bridge.Car;
+import Game.Builder_Prototype_Bridge.FuelType;
 import Game.GameWindow;
-import Game.Wrapper;
 
 public class ElectricEngine extends Car {
     private Car car;

@@ -1,6 +1,6 @@
 package Game.Strategy;
 
-import Game.Builder_Prototype.Car;
+import Game.Builder_Prototype_Bridge.Car;
 import Game.Chat;
 
 public class Jump extends SquareAlgorithm {
@@ -10,6 +10,6 @@ public class Jump extends SquareAlgorithm {
     @Override
     public double[] doSquareAction(int currentPosition, Car car, int rolled) {
         Chat.AddMessage("You jumped over the ramp and skipped 3 squares");
-        return new double[] {currentPosition + this.ADDITION, car.fuel - car.getPower() * rolled, car.health - DAMAGE};
+        return new double[] {currentPosition + this.ADDITION, car.fuel - car.getPower() * rolled, car.health - car.getShield().reduceDamage(DAMAGE)};
     }
 }

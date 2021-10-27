@@ -4,9 +4,7 @@
 
 package Game.CommandPattern;
 
-import Game.Builder_Prototype.Car;
 import Game.Dice;
-import Game.Message;
 
 public class RollCommand extends ICommand
 {

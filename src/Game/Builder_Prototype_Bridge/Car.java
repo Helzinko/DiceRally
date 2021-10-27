@@ -1,4 +1,4 @@
-package Game.Builder_Prototype;
+package Game.Builder_Prototype_Bridge;
 
 import Game.Adapter.RegularFuelPistol;
 

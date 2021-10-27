@@ -1,4 +1,4 @@
-package Game.Builder_Prototype;
+package Game.Builder_Prototype_Bridge;
 
 public abstract class Shield implements Cloneable
 {
@@ -13,6 +13,8 @@ public abstract class Shield implements Cloneable
     public String getType() {
         return type;
     }
+
+    public abstract double reduceDamage(int damage);
 
     public Shield copyShallow()
     {

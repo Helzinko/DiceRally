@@ -4,12 +4,9 @@
 
 package Game.Facade;
 
-import Game.Builder_Prototype.*;
+import Game.Builder_Prototype_Bridge.*;
 import Game.Chat;
-import Game.CommandPattern.Controller;
-import Game.CommandPattern.ICommand;
 import Game.Decorator.*;
-import Game.Wrapper;
 
 public class Facade
 {
