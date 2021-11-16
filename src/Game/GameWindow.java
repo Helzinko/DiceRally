@@ -4,6 +4,7 @@ import Game.Builder_Prototype_Bridge.Car;
 import Game.Builder_Prototype_Bridge.CarBuilder;
 import Game.CommandPattern.*;
 import Game.Facade.Facade;
+import Game.Composite_Iterator.MainMenu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -59,7 +60,7 @@ public class GameWindow extends Panel {
 
     public static GameWindow ShowWindow()
     {
-        carType = LoginWindow.inputCarType.getSelectedItem().toString();
+        carType = MainMenu.carTypeInput;
 
         /*Director director = new Director();
         CarBuilder builder = new CarBuilder();
@@ -135,65 +136,61 @@ public class GameWindow extends Panel {
         dice.setMargin(new Insets(0, 0, 0, 0));
         gameWindow.add(dice);
 
-        dice.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        dice.addActionListener(e -> {
 
-                if(canGo) {
-                    if(car.fuel <= 0){
-                        Chat.AddMessage("I can't move. I am out of fuel. I will miss one move :(");
-                        car.fuel = 60;
+            if(canGo) {
+                if(car.fuel <= 0){
+                    Chat.AddMessage("I can't move. I am out of fuel. I will miss one move :(");
+                    car.fuel = 60;
+                }
+                else if (car.health <= 0){
+                    Chat.AddMessage("My car is broken. I can't. I will miss one move until my team fixes it.");
+                    car.health = 100;
+                }
+                else{
+                    //int rolledNumber = Dice.Roll();
+
+                    Dice dice = new Dice();
+                    Controller ctrl = new Controller();
+                    ICommand cmd = new RollCommand(dice);
+                    int rolledNumber = ctrl.run(cmd);
+
+                    currentPlayerSquare += rolledNumber;
+
+                    if (currentPlayerSquare > 26) {
+                        currentPlayerSquare = currentPlayerSquare - 26;
                     }
-                    else if (car.health <= 0){
-                        Chat.AddMessage("My car is broken. I can't. I will miss one move until my team fixes it.");
-                        car.health = 100;
-                    }
-                    else{
-                        //int rolledNumber = Dice.Roll();
-
-                        Dice dice = new Dice();
-                        Controller ctrl = new Controller();
-                        ICommand cmd = new RollCommand(dice);
-                        int rolledNumber = ctrl.run(cmd);
-
-                        currentPlayerSquare += rolledNumber;
-
-                        if (currentPlayerSquare > 26) {
-                            currentPlayerSquare = currentPlayerSquare - 26;
-                        }
-                        Square[][] map = MapGenerator.Generate();
-                        boolean finishCalculation = false;
-                        for ( int row = 0; row < 10; row++ ){
-                            for ( int column = 0; column < 10; column++ ){
-                                if(currentPlayerSquare ==map[row][column].ReturnNumber()){
-                                    double[] resultsAfterRoll = map[row][column].getSquareAlgorithm().doSquareAction(currentPlayerSquare, car, rolledNumber);
-                                    needUpdate = true;
-                                    updateMessage = car.fuel + "," + car.health;
-                                    currentPlayerSquare = (int)resultsAfterRoll[0];
-                                    car.fuel = (int)resultsAfterRoll[1];
-                                    car.health = (int)resultsAfterRoll[2];
-                                    System.out.println("kuras " + car.fuel);
-                                    System.out.println("hp " + car.health);
-                                    finishCalculation = true;
-                                    break;
-                                }
-                            }
-                            if(finishCalculation){
-                                finishCalculation = false;
+                    Square[][] map = MapGenerator.Generate();
+                    boolean finishCalculation = false;
+                    for ( int row = 0; row < 10; row++ ){
+                        for ( int column = 0; column < 10; column++ ){
+                            if(currentPlayerSquare ==map[row][column].ReturnNumber()){
+                                double[] resultsAfterRoll = map[row][column].getSquareAlgorithm().doSquareAction(currentPlayerSquare, car, rolledNumber);
+                                needUpdate = true;
+                                updateMessage = car.fuel + "," + car.health;
+                                currentPlayerSquare = (int)resultsAfterRoll[0];
+                                car.fuel = (int)resultsAfterRoll[1];
+                                car.health = (int)resultsAfterRoll[2];
+                                System.out.println("kuras " + car.fuel);
+                                System.out.println("hp " + car.health);
+                                finishCalculation = true;
                                 break;
                             }
                         }
-                        rolledMessage = String.valueOf(rolledNumber) + "," + String.valueOf(currentPlayerSquare) + "," + String.valueOf((int)car.fuel) + "," + String.valueOf((int)car.health);
-                        System.out.println("Formed: " + rolledMessage);
-
-                        ChangeDice(rolledNumber);
+                        if(finishCalculation){
+                            break;
+                        }
                     }
+                    rolledMessage = rolledNumber + "," + currentPlayerSquare + "," + (int) car.fuel + "," + (int) car.health;
+                    System.out.println("Formed: " + rolledMessage);
 
-                    gameWindow.repaint();
-
-                    canGo = false;
-                    rollPressed = true;
+                    ChangeDice(rolledNumber);
                 }
+
+                gameWindow.repaint();
+
+                canGo = false;
+                rollPressed = true;
             }
         });
 
@@ -209,27 +206,23 @@ public class GameWindow extends Panel {
         pause.setMargin(new Insets(0, 0, 0, 0));
         gameWindow.add(pause);
 
-        pause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Controller ctrl = new Controller();
-                ICommand cmd = new PauseCommand(pause);
-                if(canPause)
-                {
-                    if(!pausePlayPressed) {
-                        canGo = false;
-                        pausePlayPressed = true;
-                        ctrl.run(cmd);
-                    }
-                    else if(pausePlayPressed)
-                    {
-                        ctrl.run(cmd);
-                        canGo = true;
-                        pausePlayPressed = false;
-                        ctrl.undo();
-                    }
-                    pausePressedCount++;
+        pause.addActionListener(e -> {
+            Controller ctrl = new Controller();
+            ICommand cmd = new PauseCommand(pause);
+            if(canPause)
+            {
+                if(!pausePlayPressed) {
+                    canGo = false;
+                    pausePlayPressed = true;
+                    ctrl.run(cmd);
                 }
+                else {
+                    ctrl.run(cmd);
+                    canGo = true;
+                    pausePlayPressed = false;
+                    ctrl.undo();
+                }
+                pausePressedCount++;
             }
         });
         return gameWindow;
@@ -344,16 +337,9 @@ public class GameWindow extends Panel {
 
     public static void EnemyPaused(boolean pressed){
 
-        if(!pressed)
-        {
-            canGo = false;
-            //canPause = true;
-        }
-        else
-        {
-            canGo = true;
-            //canPause = false;
-        }
+        //canPause = true;
+        //canPause = false;
+        canGo = pressed;
         //ChangePause(pressed);
     }
 

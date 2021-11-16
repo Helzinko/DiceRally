@@ -4,23 +4,25 @@ import Game.Strategy.SquareAlgorithm;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface Square {
 
-    public void SetCoord(int x, int y);
+    void SetCoord(int x, int y);
 
-    public int[] GetCenterCoord();
+    int[] GetCenterCoord();
 
-    public int ReturnType();
+    int ReturnType();
 
-    public int ReturnNumber();
+    int ReturnNumber();
 
-    public int ReturnX();
+    int ReturnX();
 
-    public int ReturnY();
+    int ReturnY();
 
-    public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException;
+    void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException;
 
-    public SquareAlgorithm getSquareAlgorithm();
+    SquareAlgorithm getSquareAlgorithm();
 
 }

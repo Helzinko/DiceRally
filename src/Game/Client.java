@@ -1,8 +1,6 @@
 package Game;
 
-import Game.PlayerProfile.AbstractFactory;
-import Game.PlayerProfile.FactoryProducer;
-import Game.PlayerProfile.Person;
+import Game.Composite_Iterator.MainMenu;
 
 import java.io.*;
 import java.net.Socket;
@@ -21,7 +19,7 @@ public class Client extends Observer{
         chat = new Chat();
         int pausepressedCount = 1;
         Client client = new Client();
-        client.subject = chat.instance;
+        client.subject = Chat.instance;
         client.subject.attach(client);
 
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
@@ -35,28 +33,27 @@ public class Client extends Observer{
 
         new Thread(serverConn).start();
 
-        LoginWindow.CreateWindow();
+//        LoginWindow.CreateWindow();
+        MainMenu.CreateWindow();
 
         boolean canContinue = false;
 
         player = null;
         while (!canContinue) {
             Thread.yield();
-            if (LoginWindow.pressed) {
-                playerName = LoginWindow.loginInputField.getText();
+            if (MainMenu.pressed) {
+                playerName = MainMenu.nameInput.getText();
                 player = new Player(playerID, playerName);
                 String text = " connected as ";
                 Frame.ShowFrame();
-                carType = LoginWindow.inputCarType.getSelectedItem().toString();
+                carType = MainMenu.carTypeInput;
 
                 String message = Wrapper.Encode(player, Command.CONNECT, text) + carType + " " + GameWindow.fuelTypes;
                 out.println(message);
 
-                boolean isMale = true;
-                if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
-                    isMale = false;
-                }
-                String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
+                boolean isMale = !MainMenu.genderTypeInput.equals("Female");
+
+                String hairColor = MainMenu.colorTypeInput;
 
                 String profile = Wrapper.Encode(player, Command.PROFILE, hairColor+"-"+isMale+"-"+playerName);
                 out.println(profile);
@@ -64,6 +61,32 @@ public class Client extends Observer{
                 canContinue = true;
             }
         }
+
+//        player = null;
+//        while (!canContinue) {
+//            Thread.yield();
+//            if (LoginWindow.pressed) {
+//                playerName = LoginWindow.loginInputField.getText();
+//                player = new Player(playerID, playerName);
+//                String text = " connected as ";
+//                Frame.ShowFrame();
+//                carType = LoginWindow.inputCarType.getSelectedItem().toString();
+//
+//                String message = Wrapper.Encode(player, Command.CONNECT, text) + carType + " " + GameWindow.fuelTypes;
+//                out.println(message);
+//
+//                boolean isMale = true;
+//                if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
+//                    isMale = false;
+//                }
+//                String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
+//
+//                String profile = Wrapper.Encode(player, Command.PROFILE, hairColor+"-"+isMale+"-"+playerName);
+//                out.println(profile);
+//
+//                canContinue = true;
+//            }
+//        }
 
 
         while (true) {
@@ -103,6 +126,6 @@ public class Client extends Observer{
             String text = subject.getState();
             String message = Wrapper.Encode(player, Command.SEND, text);
             out.println(message);
-            chat.instance.sendField.setText("");
+            Chat.sendField.setText("");
     }
 }

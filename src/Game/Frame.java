@@ -1,5 +1,6 @@
 package Game;
 
+import Game.Composite_Iterator.MainMenu;
 import Game.PlayerProfile.AbstractFactory;
 import Game.PlayerProfile.FactoryProducer;
 import Game.PlayerProfile.Person;
@@ -51,13 +52,9 @@ public class Frame extends JFrame {
     }
 
     public static void DrawPlayersProfile() throws IOException {
-        boolean isMale = true;
+        boolean isMale = !MainMenu.genderTypeInput.equals("Female");
 
-        if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
-            isMale = false;
-        }
-
-        String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
+        String hairColor = MainMenu.colorTypeInput;
 
         AbstractFactory shapeFactory = FactoryProducer.getFactory(isMale);
         person = shapeFactory.getPerson(hairColor);
@@ -89,11 +86,8 @@ public class Frame extends JFrame {
                 enemyProfilePanel.PaintProfilePanel(player2Panel, enemy, enemyName);
                 frame.add(enemyProfilePanel, BorderLayout.EAST);
 
-                boolean isMale = true;
-                if(LoginWindow.inputSexType.getSelectedItem().toString().equals("Female")){
-                    isMale = false;
-                }
-                String hairColor = LoginWindow.inputHairColor.getSelectedItem().toString();
+                boolean isMale = !MainMenu.genderTypeInput.equals("Female");
+                String hairColor = MainMenu.colorTypeInput;
 
                 String profile = Wrapper.Encode(Client.player, Command.PROFILE, hairColor+"-"+isMale+"-"+Client.playerName);
                 Client.out.println(profile);
