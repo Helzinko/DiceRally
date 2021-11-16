@@ -9,7 +9,7 @@ public class MainMenu {
     public static String carTypeInput;
     public static String genderTypeInput;
     public static String colorTypeInput;
-    public static JLabel nameInput;
+    public static JTextField nameInput;
     static LoginInputs inputs;
 
     public static void CreateWindow(){
@@ -47,10 +47,11 @@ public class MainMenu {
         menuPanel.setName("main menu");
         GridBagConstraints c = new GridBagConstraints();
 
-        nameInput = new JLabel("Enter your name:");
+        nameInput = new JTextField(16);
+
 
         menuPanel.add(nameInput);
-        menuPanel.add(new JTextField(16));
+        menuPanel.add(new JLabel("Enter your name:"));
 
         Holder holder = new Holder(allMenus);
         holder.displayMenu(menuPanel, c);
@@ -67,8 +68,6 @@ public class MainMenu {
             carTypeInput = carMenu.getCarType();
             genderTypeInput = genderMenu.getGenderType();
             colorTypeInput = colorMenu.getColorType();
-
-            System.out.println("Car type: " + carTypeInput + " Gender type: " + genderMenu.getGenderType() + " Color type: " + colorMenu.getColorType());
         });
 
         startPanel.add(startButton);
