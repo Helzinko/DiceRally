@@ -78,5 +78,6 @@ public class MainMenu {
         loginFrame.add(menuPanel);
         loginFrame.setSize(400, 600);
         loginFrame.setLocation(400,100);
+        loginFrame.show();
     }
 }

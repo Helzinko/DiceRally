@@ -1,0 +1,6 @@
+[2021-11-16 11:42:42] Enter your name:.CONNECT. connected as Rally Car   | ELECTRIC  | ELECTRIC + DIESEL
+[2021-11-16 11:42:42] Enter your name:.PROFILE.Brown-false-Enter your name:
+[2021-11-16 11:42:52] Enter your name:.CONNECT. connected as Race Car   | ELECTRIC  | ELECTRIC + PETROL + GAS
+[2021-11-16 11:42:52] Enter your name:.PROFILE.Black-true-Enter your name:
+[2021-11-16 13:03:16] Enter your name:.CONNECT. connected as Brown   | ELECTRIC  | ELECTRIC + BIO_FUEL
+[2021-11-16 13:03:16] Enter your name:.PROFILE.Brown-false-Enter your name:

@@ -21,7 +21,7 @@ public class Menu extends MenuComponent {
 
     @Override
     public void displayMenu(JPanel menuPanel, GridBagConstraints c) {
-        JPanel newPanel = new JPanel(new GridLayout(1, 3, 5,5));
+        JPanel newPanel = new JPanel();
         newPanel.add(new JLabel(getName()));
         newPanel.setName(getName());
         menuPanel.add(newPanel);
