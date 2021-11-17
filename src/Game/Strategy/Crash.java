@@ -9,4 +9,19 @@ public class Crash extends SquareAlgorithm{
         System.out.println(car.getShield().reduceDamage(DAMAGE));
         return new double[] {currentPosition, car.fuel - car.getPower() * rolled, car.health - car.getShield().reduceDamage(DAMAGE)};
     }
+
+    @Override
+    public boolean ifTakeDamage() {
+        return false;
+    }
+
+    @Override
+    public boolean isSkippingSquare() {
+        return false;
+    }
+
+    @Override
+    public int skipSquares() {
+        return 0;
+    }
 }

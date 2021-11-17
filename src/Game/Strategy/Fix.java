@@ -9,4 +9,19 @@ public class Fix extends SquareAlgorithm{
         Chat.AddMessage("Your car has been fixed :)");
         return new double[] {currentPosition, car.fuel - car.getPower() * rolled, 100};
     }
+
+    @Override
+    public boolean ifTakeDamage() {
+        return false;
+    }
+
+    @Override
+    public boolean isSkippingSquare() {
+        return false;
+    }
+
+    @Override
+    public int skipSquares() {
+        return 0;
+    }
 }

@@ -20,4 +20,19 @@ public class PutGas extends SquareAlgorithm{
         }
         return new double[] {currentPosition, filled, car.health};
     }
+
+    @Override
+    public boolean ifTakeDamage() {
+        return false;
+    }
+
+    @Override
+    public boolean isSkippingSquare() {
+        return false;
+    }
+
+    @Override
+    public int skipSquares() {
+        return 0;
+    }
 }
