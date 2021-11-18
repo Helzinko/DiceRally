@@ -2,8 +2,8 @@ package Game.Squares;
 
 import Game.GameWindow;
 import Game.Square;
-import Game.Strategy.Jump;
-import Game.Strategy.SquareAlgorithm;
+import Game.Strategy_Template.Jump;
+import Game.Strategy_Template.SquareAlgorithm;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

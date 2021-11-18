@@ -1,13 +1,11 @@
-package Game.Strategy;
+package Game.Strategy_Template;
 
 import Game.Builder_Prototype_Bridge.Car;
-import Game.Chat;
 
-public class Fix extends SquareAlgorithm{
+public class Drive extends SquareAlgorithm{
     @Override
     public double[] doSquareAction(int currentPosition, Car car, int rolled) {
-        Chat.AddMessage("Your car has been fixed :)");
-        return new double[] {currentPosition, car.fuel - car.getPower() * rolled, 100};
+        return new double[] {currentPosition, car.fuel - car.getPower() * rolled, car.health};
     }
 
     @Override

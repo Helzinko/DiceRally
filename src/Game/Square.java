@@ -1,11 +1,9 @@
 package Game;
 
-import Game.Strategy.SquareAlgorithm;
+import Game.Strategy_Template.SquareAlgorithm;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public interface Square {
 

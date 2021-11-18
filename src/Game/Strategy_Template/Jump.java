@@ -1,7 +1,6 @@
-package Game.Strategy;
+package Game.Strategy_Template;
 
 import Game.Builder_Prototype_Bridge.Car;
-import Game.Chat;
 
 public class Jump extends SquareAlgorithm {
     private final int ADDITION = 3;

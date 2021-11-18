@@ -2,8 +2,8 @@ package Game.Squares;
 
 import Game.GameWindow;
 import Game.Square;
-import Game.Strategy.DriveBridge;
-import Game.Strategy.SquareAlgorithm;
+import Game.Strategy_Template.DriveBridge;
+import Game.Strategy_Template.SquareAlgorithm;
 
 import java.awt.*;
 

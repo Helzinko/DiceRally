@@ -1,4 +1,4 @@
-package Game.Template;
+package Game.Strategy_Template;
 
 import Game.Chat;
 
