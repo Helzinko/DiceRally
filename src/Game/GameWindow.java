@@ -2,6 +2,10 @@ package Game;
 
 import Game.Builder_Prototype_Bridge.Car;
 import Game.Builder_Prototype_Bridge.CarBuilder;
+import Game.ChainOfResponsibility.AbstractLogger;
+import Game.ChainOfResponsibility.ChatLogger;
+import Game.ChainOfResponsibility.ErrorConsoleLogger;
+import Game.ChainOfResponsibility.FileLogger;
 import Game.CommandPattern.*;
 import Game.Facade.Facade;
 import Game.Composite_Iterator.MainMenu;
@@ -62,8 +66,11 @@ public class GameWindow extends Panel {
     private static Car decoratedVehicle;
     private static Car decoratedVehicle1;
 
+    private static AbstractLogger loggerChain;
+
     public static GameWindow ShowWindow()
     {
+        loggerChain = getChainOfLoggers();
         carType = MainMenu.carTypeInput;
 
         /*Director director = new Director();
@@ -261,6 +268,7 @@ public class GameWindow extends Panel {
                 try {
                     map[row][column].DrawSquare(g2d,column*unitSize, row*unitSize, unitSize, unitSize);
                 } catch (IOException e) {
+                    loggerChain.logMessage(AbstractLogger.ERROR_CONSOLE, e.getMessage());
                     e.printStackTrace();
                 }
 
@@ -353,6 +361,18 @@ public class GameWindow extends Panel {
         //canPause = false;
         canGo = pressed;
         //ChangePause(pressed);
+    }
+
+    private static AbstractLogger getChainOfLoggers(){
+
+        AbstractLogger errorLogger = new ChatLogger(AbstractLogger.ERROR_CONSOLE);
+        AbstractLogger fileLogger = new ErrorConsoleLogger(AbstractLogger.FILE);
+        AbstractLogger chatLogger = new FileLogger(AbstractLogger.CHAT);
+
+        errorLogger.setNextLogger(fileLogger);
+        fileLogger.setNextLogger(chatLogger);
+
+        return errorLogger;
     }
 
 }
