@@ -5,6 +5,7 @@
 package Game.CommandPattern;
 import Game.Dice;
 import Game.Message;
+import Game.Visitor.StatusEffectVisitor;
 
 import javax.swing.*;
 

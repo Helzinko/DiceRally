@@ -1,8 +1,10 @@
 package Game.Builder_Prototype_Bridge;
 
 import Game.Adapter.RegularFuelPistol;
+import Game.Visitor.StatusEffectVisitor;
+import Game.Visitor.Visitor;
 
-public class Car implements Cloneable
+public class Car implements Cloneable, Visitor
 {
     private BodyType bodyType;
     private double power;
@@ -37,6 +39,10 @@ public class Car implements Cloneable
     public double getPower()
     {
         return power;
+    }
+
+    public void setPower(double power){
+        this.power = power;
     }
 
     public FuelType getFuelType()
@@ -84,5 +90,10 @@ public class Car implements Cloneable
     public double fillCarTank(RegularFuelPistol pistol){
         this.pistol = pistol;
         return pistol.fill(this);
+    }
+
+    @Override
+    public void visitPlayerCar(StatusEffectVisitor statusEffectVisitor) {
+        statusEffectVisitor.alterBehavior(this);
     }
 }

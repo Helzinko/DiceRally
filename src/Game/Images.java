@@ -12,6 +12,7 @@ public class Images {
     public static ImageIcon dice6 = new ImageIcon("src/images/dice_6.png");
     public static ImageIcon pause = new ImageIcon("src/images/pausebutton.png");
     public static ImageIcon play = new ImageIcon("src/images/playbutton.png");
+    public static ImageIcon hail = new ImageIcon("src/images/StatusEffects/hail.png");
 
     public static ImageIcon roadHorizontal = new ImageIcon("src/images/Default/roadTexture_01.png");
     public static ImageIcon roadVertical = new ImageIcon("src/images/Default/roadTexture_13.png");

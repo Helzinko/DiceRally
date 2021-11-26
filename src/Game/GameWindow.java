@@ -9,6 +9,9 @@ import Game.ChainOfResponsibility.FileLogger;
 import Game.CommandPattern.*;
 import Game.Facade.Facade;
 import Game.Composite_Iterator.MainMenu;
+import Game.Visitor.StatusEffectHail;
+import Game.Visitor.StatusEffectVisitor;
+import Game.Visitor.StatusEffectWind;
 import Game.State.CanRoll;
 import Game.State.Context;
 import Game.State.EmptyFuel;
@@ -21,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class GameWindow extends Panel {
 
@@ -66,53 +70,18 @@ public class GameWindow extends Panel {
     private static Car decoratedVehicle;
     private static Car decoratedVehicle1;
 
+    public static int turnCounter = 0; // how many turns effect lasting so far
+    private static final int hailPercentage = 30;
+    private static final int windPercentage = 40;
+    public static StatusEffectVisitor statusEffect;
+    public static boolean isStatusEffectActive = false;
+
     private static AbstractLogger loggerChain;
 
     public static GameWindow ShowWindow()
     {
         loggerChain = getChainOfLoggers();
         carType = MainMenu.carTypeInput;
-
-        /*Director director = new Director();
-        CarBuilder builder = new CarBuilder();
-        switch (carType){
-            case "Race Car":
-                director.constructRaceCar(builder);
-                System.out.println(builder.getResult());
-
-                Car car = builder.getCar();
-                Car shallowCopy = builder.getCar().copyShallow();
-                Car deepCopy = builder.getCar().copyDeep();
-
-
-                decoratedVehicle = new ElectricEngine(car);
-                decoratedVehicle1 = new Petrol(decoratedVehicle);
-                decoratedVehicle1.getFuelType();
-                System.out.println("primary shield: " + car.getShield().getType() + " | " + System.identityHashCode(car.getShield()));
-                System.out.println("shallow copy shield: " + shallowCopy.getShield().getType() + " | " + System.identityHashCode(shallowCopy.getShield()));
-                System.out.println("deep copy shield: " + deepCopy.getShield().getType() + " | " + System.identityHashCode(deepCopy.getShield()));
-                break;
-            case "Rally Car":
-                director.constructRallyCar(builder);
-                System.out.println(builder.getResult());
-                Car carRally = builder.getCar();
-                decoratedVehicle = new ElectricEngine(carRally);
-                decoratedVehicle1 = new Diesel(decoratedVehicle);
-                decoratedVehicle1.getFuelType();
-                break;
-            default:
-                director.constructTruckCar(builder);
-                System.out.println(builder.getResult());
-                Car carTruck = builder.getCar();
-                decoratedVehicle = new ElectricEngine(carTruck);
-                decoratedVehicle1 = new BioFuel(decoratedVehicle);
-                decoratedVehicle1.getFuelType();
-                break;
-        }
-
-        car = builder.getCar();
-
-        Chat.AddMessage(builder.getResult().toString());*/
 
         Facade facade= new Facade();
         CarBuilder builder = facade.demoBuilder(carType);
@@ -147,8 +116,9 @@ public class GameWindow extends Panel {
         dice.setMargin(new Insets(0, 0, 0, 0));
         gameWindow.add(dice);
 
-        dice.addActionListener(e -> {
+        Random random = new Random();
 
+        dice.addActionListener(e -> {
             if(canGo) {
                 Context context = new Context();
 
@@ -181,7 +151,7 @@ public class GameWindow extends Panel {
                     boolean finishCalculation = false;
                     for ( int row = 0; row < 10; row++ ){
                         for ( int column = 0; column < 10; column++ ){
-                            if(currentPlayerSquare ==map[row][column].ReturnNumber()){
+                            if(currentPlayerSquare == map[row][column].ReturnNumber()){
                                 double[] resultsAfterRoll = map[row][column].getSquareAlgorithm().doSquareAction(currentPlayerSquare, car, rolledNumber);
                                 needUpdate = true;
                                 updateMessage = car.fuel + "," + car.health;
@@ -204,6 +174,30 @@ public class GameWindow extends Panel {
                     CanRoll canRoll = new CanRoll();
                     canRoll.Handle(context, rolledMessage);
                     ChangeDice(rolledNumber);
+                }
+
+                if(!isStatusEffectActive){
+                    if(random.nextInt(100) < hailPercentage){
+                        isStatusEffectActive = true;
+
+                        if(statusEffect == null){
+                            turnCounter = 0;
+                            statusEffect = new StatusEffectHail();
+                        }
+                        car.visitPlayerCar(statusEffect);
+                        turnCounter++;
+                    }
+                    else if(random.nextInt(100) < windPercentage){
+                        isStatusEffectActive = true;
+                        if(statusEffect == null){
+                            turnCounter = 0;
+                            statusEffect = new StatusEffectWind();
+                        }
+                    }
+                } else {
+                    gameWindow.add(new JButton(new ImageIcon(Images.hail.getImage().getScaledInstance(60, 60, 0))));
+                    car.visitPlayerCar(statusEffect);
+                    turnCounter++;
                 }
 
                 gameWindow.repaint();
@@ -246,7 +240,6 @@ public class GameWindow extends Panel {
         });
         return gameWindow;
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
