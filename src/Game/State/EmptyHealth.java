@@ -9,12 +9,9 @@ import Game.Chat;
 
 public class EmptyHealth extends State
 {
-	public void Handle(Context context, Car car)
+	public void Handle(Context context)
 	{
 		Chat.AddMessage("My car is broken. I can't. I will miss one move until my team fixes it.");
-		car.health = 100;
 		context.setState(this);
 	}
-	
-	
 }
