@@ -48,9 +48,12 @@ public class ServerConnection implements Runnable {
                     //Chat.AddMessage(DateFormat.CurrentTime() + msg.player.GetName() + " says: " + msg.text);
 
                     //Naudojama command sablonui
-                    Controller ctrl = new Controller();
-                    ICommand cmd = new SendCommand(msg);
-                    ctrl.run(cmd);
+                    //Controller ctrl = new Controller();
+                    //ICommand cmd = new SendCommand(msg);
+                    //ctrl.run(cmd);
+
+                    msg.player.sendMessage(msg.text);
+
                 }
                 else if(msg.command == Command.ROLL){
                     String[] messageArray = msg.text.split(",");

@@ -1,5 +1,7 @@
 package Game;
 
+import Game.Mediator.ChatRoom;
+
 public class Player{
 
     private String name;
@@ -25,5 +27,9 @@ public class Player{
 
     public int GetId(){
         return id;
+    }
+
+    public void sendMessage(String message){
+        ChatRoom.showMessage(this,message);
     }
 }

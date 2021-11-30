@@ -9,13 +9,10 @@ import Game.ChainOfResponsibility.FileLogger;
 import Game.CommandPattern.*;
 import Game.Facade.Facade;
 import Game.Composite_Iterator.MainMenu;
+import Game.State.*;
 import Game.Visitor.StatusEffectHail;
 import Game.Visitor.StatusEffectVisitor;
 import Game.Visitor.StatusEffectWind;
-import Game.State.CanRoll;
-import Game.State.Context;
-import Game.State.EmptyFuel;
-import Game.State.EmptyHealth;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -126,13 +123,17 @@ public class GameWindow extends Panel {
                     //Chat.AddMessage("I can't move. I am out of fuel. I will miss one move :(");
                     //car.fuel = 60;
                     EmptyFuel emptyFuel = new EmptyFuel();
-                    emptyFuel.Handle(context, car);
+                    FillFuel fillFuel = new FillFuel();
+                    emptyFuel.Handle(context);
+                    fillFuel.Handle(context, car);
                 }
                 else if (car.health <= 0){
                     //Chat.AddMessage("My car is broken. I can't. I will miss one move until my team fixes it.");
                     //car.health = 100;
                     EmptyHealth emptyHealth = new EmptyHealth();
-                    emptyHealth.Handle(context, car);
+                    FillHealth fillHealth = new FillHealth();
+                    emptyHealth.Handle(context);
+                    fillHealth.Handle(context, car);
                 }
                 else{
                     //int rolledNumber = Dice.Roll();

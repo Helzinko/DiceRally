@@ -17,8 +17,9 @@ public class SendCommand extends ICommand
 
     @Override
     public int execute() {
-        System.out.println(this.message.player.GetName() + " says: " + this.message.text);
-        Chat.AddMessage(DateFormat.CurrentTime() + this.message.player.GetName() + " says: " + this.message.text);
+        //System.out.println(this.message.player.GetName() + " says: " + this.message.text);
+        //Chat.AddMessage(DateFormat.CurrentTime() + this.message.player.GetName() + " says: " + this.message.text);
+
         return 0;
     }
 
