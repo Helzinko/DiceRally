@@ -1,6 +1,7 @@
 package Game.Squares;
 
 import Game.GameWindow;
+import Game.Proxy.ProxyImage;
 import Game.Square;
 import Game.Strategy_Template.Neutral;
 import Game.Strategy_Template.SquareAlgorithm;
@@ -10,6 +11,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+import Game.Proxy.Image;
+import Game.Proxy.ProxyImage;
+
 public class WaterSquare implements Square {
 
     public int type = 0;
@@ -18,11 +22,14 @@ public class WaterSquare implements Square {
     public int x;
     public int y;
 
+    private Image waterImage;
+
     public WaterSquare(int type, int number){
 
         this.type = type;
         this.number = number;
 
+        waterImage = new ProxyImage("src/images/Default/roadTexture_25.png");
     }
 
     @Override
@@ -63,7 +70,7 @@ public class WaterSquare implements Square {
 
     @Override
     public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException {
-        g2d.drawImage(ImageIO.read(new File("src/images/Default/roadTexture_25.png")), x, y, width, height, null);
+        g2d.drawImage(waterImage.display().getImage(), x, y, width, height, null);
     }
 
     @Override

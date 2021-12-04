@@ -1,6 +1,7 @@
 package Game.Squares;
 
 import Game.GameWindow;
+import Game.Proxy.ProxyImage;
 import Game.Square;
 import Game.Strategy_Template.Drive;
 import Game.Strategy_Template.SquareAlgorithm;

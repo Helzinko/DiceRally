@@ -18,12 +18,12 @@ public class PauseCommand extends ICommand
 
     @Override
     public int execute() {
-        this.button.setIcon(new ImageIcon(Images.play.getImage().getScaledInstance(40, 40, 0)));
+        this.button.setIcon(new ImageIcon(Images.play.display().getImage().getScaledInstance(40, 40, 0)));
         return 0;
     }
 
     @Override
     public void undo() {
-        this.button.setIcon(new ImageIcon(Images.pause.getImage().getScaledInstance(40, 40, 0)));
+        this.button.setIcon(new ImageIcon(Images.pause.display().getImage().getScaledInstance(40, 40, 0)));
     }
 }

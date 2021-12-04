@@ -1,6 +1,7 @@
 package Game.Squares;
 
 import Game.GameWindow;
+import Game.Proxy.ProxyImage;
 import Game.Square;
 import Game.Strategy_Template.Crash;
 import Game.Strategy_Template.SquareAlgorithm;
@@ -9,6 +10,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+
+import Game.Proxy.Image;
 
 public class WallSquare implements Square {
 
@@ -19,11 +22,14 @@ public class WallSquare implements Square {
     public int y;
     public int damage = 30;
 
+    private Image squareImage;
+
     public WallSquare(int type, int number) {
 
         this.type = type;
         this.number = number;
 
+        squareImage = new ProxyImage("src/images/Default/wallTexture_01.png");
     }
 
     @Override
@@ -64,7 +70,7 @@ public class WallSquare implements Square {
 
     @Override
     public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException {
-        g2d.drawImage(ImageIO.read(new File("src/images/Default/wallTexture_01.png")), x, y, width, height, null);
+        g2d.drawImage(squareImage.display().getImage(), x, y, width, height, null);
     }
 
     @Override

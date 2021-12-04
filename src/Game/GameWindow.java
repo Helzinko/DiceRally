@@ -101,7 +101,7 @@ public class GameWindow extends Panel {
 
         gameWindow = new GameWindow(windowSize, windowSize, true);
 
-        ImageIcon diceIcon = new ImageIcon(Images.dice1.getImage().getScaledInstance(diceSize, diceSize, 0));
+        ImageIcon diceIcon = new ImageIcon(Images.dice1.display().getImage().getScaledInstance(diceSize, diceSize, 0));
         dice = new JButton(diceIcon);
         dice.setBorder(null);
         dice.setBackground(null);
@@ -196,7 +196,7 @@ public class GameWindow extends Panel {
                         }
                     }
                 } else {
-                    gameWindow.add(new JButton(new ImageIcon(Images.hail.getImage().getScaledInstance(60, 60, 0))));
+                    gameWindow.add(new JButton(new ImageIcon(Images.hail.display().getImage().getScaledInstance(60, 60, 0))));
                     car.visitPlayerCar(statusEffect);
                     turnCounter++;
                 }
@@ -208,7 +208,7 @@ public class GameWindow extends Panel {
             }
         });
 
-        ImageIcon pauseIcon = new ImageIcon(Images.pause.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0));
+        ImageIcon pauseIcon = new ImageIcon(Images.pause.display().getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0));
         pause = new JButton(pauseIcon);
         pause.setBorder(null);
         pause.setBackground(null);
@@ -322,20 +322,20 @@ public class GameWindow extends Panel {
 
     public static void ChangeDice(int number) {
         switch (number) {
-            case 1 -> dice.setIcon(new ImageIcon(Images.dice1.getImage().getScaledInstance(diceSize, diceSize, 0)));
-            case 2 -> dice.setIcon(new ImageIcon(Images.dice2.getImage().getScaledInstance(diceSize, diceSize, 0)));
-            case 3 -> dice.setIcon(new ImageIcon(Images.dice3.getImage().getScaledInstance(diceSize, diceSize, 0)));
-            case 4 -> dice.setIcon(new ImageIcon(Images.dice4.getImage().getScaledInstance(diceSize, diceSize, 0)));
-            case 5 -> dice.setIcon(new ImageIcon(Images.dice5.getImage().getScaledInstance(diceSize, diceSize, 0)));
-            case 6 -> dice.setIcon(new ImageIcon(Images.dice6.getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 1 -> dice.setIcon(new ImageIcon(Images.dice1.display().getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 2 -> dice.setIcon(new ImageIcon(Images.dice2.display().getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 3 -> dice.setIcon(new ImageIcon(Images.dice3.display().getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 4 -> dice.setIcon(new ImageIcon(Images.dice4.display().getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 5 -> dice.setIcon(new ImageIcon(Images.dice5.display().getImage().getScaledInstance(diceSize, diceSize, 0)));
+            case 6 -> dice.setIcon(new ImageIcon(Images.dice6.display().getImage().getScaledInstance(diceSize, diceSize, 0)));
         }
     }
 
     public static void ChangePause(boolean pressed) {
         if (!pressed) {
-            pause.setIcon(new ImageIcon(Images.pause.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
+            pause.setIcon(new ImageIcon(Images.pause.display().getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
         } else {
-            pause.setIcon(new ImageIcon(Images.play.getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
+            pause.setIcon(new ImageIcon(Images.play.display().getImage().getScaledInstance(pauseButtonSize, pauseButtonSize, 0)));
         }
     }
 

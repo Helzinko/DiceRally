@@ -1,6 +1,7 @@
 package Game.Squares;
 
 import Game.GameWindow;
+import Game.Proxy.ProxyImage;
 import Game.Square;
 import Game.Strategy_Template.DriveBridge;
 import Game.Strategy_Template.SquareAlgorithm;
@@ -15,11 +16,14 @@ public class BridgeSquare implements Square {
     public int x;
     public int y;
 
+    private Game.Proxy.Image squareImage;
+
     public BridgeSquare(int type, int number){
 
         this.type = type;
         this.number = number;
 
+        squareImage = new ProxyImage("src/images/Default/garage_01.png");
     }
 
     @Override

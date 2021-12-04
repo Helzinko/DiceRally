@@ -1,6 +1,7 @@
 package Game.Squares;
 
 import Game.GameWindow;
+import Game.Proxy.ProxyImage;
 import Game.Square;
 import Game.Strategy_Template.PutGas;
 import Game.Strategy_Template.SquareAlgorithm;
@@ -18,11 +19,15 @@ public class GasSquare implements Square {
     public int x;
     public int y;
 
+    private Game.Proxy.Image squareImage;
+
+
     public GasSquare(int type, int number) {
 
         this.type = type;
         this.number = number;
 
+        squareImage = new ProxyImage("src/images/Default/gas_01.png");
     }
 
     @Override
@@ -63,7 +68,7 @@ public class GasSquare implements Square {
 
     @Override
     public void DrawSquare(Graphics2D g2d, int x, int y, int width, int height) throws IOException {
-        g2d.drawImage(ImageIO.read(new File("src/images/Default/gas_01.png")), x, y, width, height, null);
+        g2d.drawImage(squareImage.display().getImage(), x, y, width, height, null);
     }
 
     @Override
