@@ -1,5 +1,7 @@
 package Game;
 
+import Game.Interpreter.*;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -54,7 +56,18 @@ public class Chat {
         sendBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                instance.setState(sendField.getText());
+                if(sendField.getText().toCharArray()[0] == '/'){
+                    if(ConsoleCommands.getCorrectCommand().interpret(sendField.getText())){
+                        CommandController.PlayCommand(sendField.getText());
+                    } else{
+                        Chat.AddMessage("Incorrect command. Try using these: /roll, /pause, /exit.");
+                    }
+
+                    Chat.sendField.setText("");
+                }
+                else{
+                    instance.setState(sendField.getText());
+                }
             }
         });
 
@@ -70,6 +83,8 @@ public class Chat {
 
         panel.add(textPanel,  BorderLayout.NORTH);
         panel.add(sendPanel, BorderLayout.SOUTH);
+
+        Chat.AddMessage("Helpful commands: /roll, /pause, /exit.");
 
         return panel;
     }
