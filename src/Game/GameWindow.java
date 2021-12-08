@@ -9,6 +9,8 @@ import Game.ChainOfResponsibility.FileLogger;
 import Game.CommandPattern.*;
 import Game.Facade.Facade;
 import Game.Composite_Iterator.MainMenu;
+import Game.Memento.CareTaker;
+import Game.Memento.Originator;
 import Game.State.*;
 import Game.Visitor.StatusEffectHail;
 import Game.Visitor.StatusEffectVisitor;
@@ -77,6 +79,9 @@ public class GameWindow extends Panel {
 
     public static GameWindow ShowWindow()
     {
+        Originator originator = new Originator();
+        CareTaker careTaker = new CareTaker();
+
         loggerChain = getChainOfLoggers();
         carType = MainMenu.carTypeInput;
 
@@ -142,6 +147,14 @@ public class GameWindow extends Panel {
                     Controller ctrl = new Controller();
                     ICommand cmd = new RollCommand(dice);
                     int rolledNumber = ctrl.run(cmd);
+
+                    originator.setState(String.valueOf(rolledNumber));
+                    careTaker.add(originator.saveStateToMemento());
+
+                    if(careTaker.size()>1) {
+                        originator.getStateFromMemento(careTaker.get(careTaker.size() - 2));
+                        Chat.AddMessage("n-1: " + originator.getState());
+                    }
 
                     currentPlayerSquare += rolledNumber;
 
