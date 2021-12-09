@@ -21,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -76,6 +77,8 @@ public class GameWindow extends Panel {
     public static boolean isStatusEffectActive = false;
 
     private static AbstractLogger loggerChain;
+
+    private static boolean endGameAfterTurn = false;
 
     public static GameWindow ShowWindow()
     {
@@ -158,8 +161,10 @@ public class GameWindow extends Panel {
                     currentPlayerSquare += rolledNumber;
 
                     if (currentPlayerSquare > 26) {
+                        endGameAfterTurn = true;
                         currentPlayerSquare = currentPlayerSquare - 26;
                     }
+
                     Square[][] map = MapGenerator.Generate();
                     boolean finishCalculation = false;
                     for ( int row = 0; row < 10; row++ ){
@@ -208,15 +213,42 @@ public class GameWindow extends Panel {
                         }
                     }
                 } else {
-                    gameWindow.add(new JButton(new ImageIcon(Images.hail.display().getImage().getScaledInstance(60, 60, 0))));
+                    //gameWindow.add(new JButton(new ImageIcon(Images.hail.display().getImage().getScaledInstance(60, 60, 0))));
                     car.visitPlayerCar(statusEffect);
                     turnCounter++;
                 }
 
-                gameWindow.repaint();
+                if(!endGameAfterTurn) {
+                    gameWindow.repaint();
 
-                canGo = false;
-                rollPressed = true;
+                    canGo = false;
+                    rollPressed = true;
+                } else {
+                    System.out.println("============= GAME WON, current square after roll: " + (currentPlayerSquare) + " =================");
+                    canGo = false;
+                    canPause = false;
+
+                    var endPanel = new Panel(windowSize / 2, windowSize / 4, true);
+                    var exitButton = new JButton("Exit");
+
+                    if(playerColor == Color.blue)
+                        endPanel.add(new JLabel("You won the race !"));
+                    else
+                        endPanel.add(new JLabel("You lost the race . . ."));
+
+                    exitButton.addActionListener(
+                            event -> {
+                                System.exit(0); // stop program
+                            }
+                    );
+
+                    endPanel.add(exitButton);
+
+                    gameWindow.add(endPanel, FlowLayout.CENTER);
+
+                    gameWindow.repaint();
+                    gameWindow.revalidate();
+                }
             }
         });
 
@@ -251,6 +283,7 @@ public class GameWindow extends Panel {
                 pausePressedCount++;
             }
         });
+
         return gameWindow;
     }
 
@@ -267,27 +300,27 @@ public class GameWindow extends Panel {
         // map drawing ------------------------------
         Square[][] map = MapGenerator.Generate();
 
-        for ( int row = 0; row < 10; row++ ){
-            for ( int column = 0; column < 10; column++ ){
+        for (int row = 0; row < 10; row++) {
+            for (int column = 0; column < 10; column++) {
 
-                map[row][column].SetCoord(column*unitSize, row*unitSize);
+                map[row][column].SetCoord(column * unitSize, row * unitSize);
                 try {
-                    map[row][column].DrawSquare(g2d,column*unitSize, row*unitSize, unitSize, unitSize);
+                    map[row][column].DrawSquare(g2d, column * unitSize, row * unitSize, unitSize, unitSize);
                 } catch (IOException e) {
                     loggerChain.logMessage(AbstractLogger.ERROR_CONSOLE, e.getMessage());
                     e.printStackTrace();
                 }
 
-                if(map[row][column].ReturnType() == 1){
+                if (map[row][column].ReturnType() == 1) {
                     //if(map[row][column].ReturnNumber() == 1){
-                        //g2d.setColor(Color.RED);
+                    //g2d.setColor(Color.RED);
                     //    g2d.fillRect(column*unitSize, row*unitSize, unitSize, unitSize);
                     //}else{
-                     //   //g2d.setColor(Color.ORANGE);
+                    //   //g2d.setColor(Color.ORANGE);
                     //    //g2d.fillRect(column*unitSize, row*unitSize, unitSize, unitSize);
                     //}
 
-                    if(map[row][column].ReturnNumber() == currentPlayerSquare){
+                    if (map[row][column].ReturnNumber() == currentPlayerSquare) {
                         try {
                             drawPlayer(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                         } catch (IOException e) {
@@ -295,7 +328,7 @@ public class GameWindow extends Panel {
                         }
                     }
 
-                    if(map[row][column].ReturnNumber() == enemyPlayerSquare){
+                    if (map[row][column].ReturnNumber() == enemyPlayerSquare) {
                         try {
                             drawEnemy(g2d, map[row][column].ReturnX(), map[row][column].ReturnY());
                         } catch (IOException e) {
@@ -304,11 +337,11 @@ public class GameWindow extends Panel {
                     }
                 }
 
-                if(map[row][column].ReturnType() == 10){
+                if (map[row][column].ReturnType() == 10) {
                     dice.setBounds(map[row][column].ReturnX(), map[row][column].ReturnY(), unitSize, unitSize);
                 }
 
-                if(map[row][column].ReturnType() == 11){
+                if (map[row][column].ReturnType() == 11) {
                     pause.setBounds(map[row][column].ReturnX(), map[row][column].ReturnY(), unitSize, unitSize);
                 }
             }

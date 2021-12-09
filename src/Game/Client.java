@@ -128,4 +128,5 @@ public class Client extends Observer{
             out.println(message);
             Chat.sendField.setText("");
     }
+
 }
