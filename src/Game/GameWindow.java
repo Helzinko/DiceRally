@@ -142,6 +142,10 @@ public class GameWindow extends Panel {
                 }
                 else{
                     //int rolledNumber = Dice.Roll();
+                    if(careTaker.size()>0) {
+                        originator.getStateFromMemento(careTaker.get(careTaker.size() - 1));
+                        Chat.AddMessage("Last roll: " + originator.getState());
+                    }
 
                     Dice dice = new Dice();
                     Controller ctrl = new Controller();
@@ -150,11 +154,6 @@ public class GameWindow extends Panel {
 
                     originator.setState(String.valueOf(rolledNumber));
                     careTaker.add(originator.saveStateToMemento());
-
-                    if(careTaker.size()>1) {
-                        originator.getStateFromMemento(careTaker.get(careTaker.size() - 2));
-                        Chat.AddMessage("n-1: " + originator.getState());
-                    }
 
                     currentPlayerSquare += rolledNumber;
 
