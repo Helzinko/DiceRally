@@ -284,6 +284,36 @@ public class GameWindow extends Panel {
             }
         });
 
+        if(endGameAfterTurn){
+            System.out.println("============= GAME OVER, current square after roll: " + (currentPlayerSquare) + " =================");
+
+            var endPanel = new Panel(windowSize / 2, windowSize / 4, true);
+            var exitButton = new JButton("Exit");
+
+            if(playerColor == Color.blue) {
+                endPanel.add(new JLabel("You won the race !"));
+            }
+            else {
+                endPanel.add(new JLabel("You lost the race . . ."));
+            }
+
+            canGo = false;
+            canPause = false;
+
+            exitButton.addActionListener(
+                    event -> {
+                        System.exit(0); // stop program
+                    }
+            );
+
+            endPanel.add(exitButton);
+
+            gameWindow.add(endPanel, FlowLayout.CENTER);
+
+            gameWindow.repaint();
+            gameWindow.revalidate();
+        }
+
         return gameWindow;
     }
 
